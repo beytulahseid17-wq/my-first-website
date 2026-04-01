@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Landing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      :root {
+  --bg: #f0f2f5;
+  --text: #1a1d25;
+  --primary: #3349ff;
+  --primary-dark: #2435cc;
+  --secondary: #08a77d;
+  --secondary-dark: #067f5f;
+  --card: #f6f6f6;
+  --muted: #6d7380;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(145deg, #eef0f6, #f8f9fb);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.site-header {
+  min-height: 100vh;
+  padding: 5.5rem 1.5rem 2rem;
+}
+
+.hero-tab {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1100px, calc(100% - 1.25rem));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: rgba(255, 255, 255, 0.86);
+  border-radius: 0 0 1rem 1rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  z-index: 100;
+  transition: backdrop-filter 0.35s ease, background-color 0.35s ease;
+}
+
+.hero-tab.scrolled {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.primary-nav {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.primary-nav a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 500;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.55rem;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.primary-nav a:hover {
+  background: #eceffd;
+  color: var(--primary);
+}
+
+.menu-toggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  border-radius: 0.65rem;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #222;
+  margin: 4px auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hero-card {
+  margin: 2rem auto 0;
+  width: min(1100px, 100%);
+  background: var(--card);
+  border-radius: 1.5rem;
+  padding: clamp(1.25rem, 2vw, 2rem);
+  box-shadow: 0 25px 50px rgba(18, 20, 34, 0.08);
+  display: grid;
+  grid-template-columns: 1fr 0.95fr;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+}
+
+.hero-content {
+  padding: 0.4rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  background: #e6e9ff;
+  color: #2839c4;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.headline {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.2;
+  margin-bottom: 0.8rem;
+}
+
+.subheadline {
+  color: var(--muted);
+  max-width: 38ch;
+  margin-bottom: 1.2rem;
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.21, 1.02, 0.36, 1);
+}
+
+.reveal-up.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1.04);
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.72rem 1.15rem;
+  border-radius: 0.8rem;
+  color: #fff;
+  transition: background-color 0.35s ease, transform 0.25s ease;
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-primary {
+  background: var(--primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible,
+.btn-primary:active {
+  background: var(--primary-dark);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible,
+.btn-secondary:active {
+  background: var(--secondary-dark);
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.social-links a {
+  text-decoration: none;
+  color: #1f2b44;
+  background: #e9edf8;
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.8rem;
+  transition: transform 0.2s ease, background-color 0.25s ease;
+}
+
+.social-links a:hover {
+  transform: translateY(-2px);
+  background: #dde4f7;
+}
+
+.hero-image-wrap {
+  min-height: 300px;
+  border-radius: 1.3rem;
+  position: relative;
+  overflow: hidden;
+  background: #e8ebf2;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: translateX(42px);
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  transition: transform 0.9s ease, opacity 0.9s ease;
+}
+
+.hero-image.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+main {
+  width: min(1100px, calc(100% - 2rem));
+  margin: 0 auto 3rem;
+}
+
+.content-section {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin: 1rem 0;
+  box-shadow: 0 8px 20px rgba(21, 24, 39, 0.05);
+}
+
+.content-section h2 {
+  margin-bottom: 0.5rem;
+}
+
+.content-section p {
+  color: #505667;
+}
+
+@media (max-width: 991px) {
+  .hero-card {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-image-wrap {
+    order: -1;
+    min-height: 260px;
+  }
+
+  .menu-toggle {
+    display: inline-block;
+  }
+
+  .primary-nav {
+    position: absolute;
+    right: 1rem;
+    top: calc(100% + 0.45rem);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    border-radius: 0.8rem;
+    box-shadow: 0 14px 24px rgba(0, 0, 0, 0.08);
+    padding: 0.6rem;
+    display: grid;
+    gap: 0.25rem;
+    min-width: 170px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+  }
+
+  .primary-nav.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 580px) {
+  .site-header {
+    padding-inline: 0.65rem;
+  }
+
+  .hero-tab {
+    width: calc(100% - 0.6rem);
+  }
+
+  .hero-card {
+    border-radius: 1.1rem;
+    padding: 1rem;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <header class="site-header" id="home">
+      <div class="hero-tab" id="heroTab">
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="primaryNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="primary-nav" id="primaryNav">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+
+      <section class="hero-card">
+        <div class="hero-content">
+          <p class="badge">Welcome</p>
+          <h1 class="headline reveal-up">This is your website</h1>
+          <p class="subheadline">
+            A modern, responsive, and smooth landing page built with only HTML, CSS, and JavaScript.
+          </p>
+
+          <div class="action-buttons">
+            <a href="#" class="btn btn-primary">Download CV</a>
+            <a href="#contact" class="btn btn-secondary">Order</a>
+          </div>
+
+          <div class="social-links" id="contact">
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="WhatsApp">WhatsApp</a>
+            <a href="mailto:hello@example.com" aria-label="Email">Email</a>
+          </div>
+        </div>
+
+        <div class="hero-image-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=800&q=80"
+            alt="Profile"
+            class="hero-image"
+            loading="lazy"
+          />
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="content-section" id="about">
+        <h2>About This Layout</h2>
+        <p>
+          Scroll down to see the fixed hero tab blur effect. The navigation becomes glassy while content moves underneath,
+          keeping the top area elegant and readable.
+        </p>
+      </section>
+      <section class="content-section" id="services">
+        <h2>Services</h2>
+        <p>
+          This template is easy to customize. You can replace text, links, colors, and spacing to fit your brand and style.
+        </p>
+      </section>
+      <section class="content-section">
+        <h2>Ready for Growth</h2>
+        <p>
+          A polished portfolio can help present your work professionally and improve client trust. Keep building and refining.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const heroTab = document.getElementById('heroTab');
+const heading = document.querySelector('.reveal-up');
+const heroImage = document.querySelector('.hero-image');
+const menuToggle = document.getElementById('menuToggle');
+const primaryNav = document.getElementById('primaryNav');
+
+const applyScrollBlur = () => {
+  if (window.scrollY > 24) {
+    heroTab.classList.add('scrolled');
+  } else {
+    heroTab.classList.remove('scrolled');
+  }
+};
+
+window.addEventListener('scroll', applyScrollBlur, { passive: true });
+applyScrollBlur();
+
+window.addEventListener('load', () => {
+  requestAnimationFrame(() => {
+    heading.classList.add('visible');
+    heroImage.classList.add('visible');
+  });
+});
+
+menuToggle.addEventListener('click', () => {
+  const isOpen = primaryNav.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+});
+
+primaryNav.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 991) {
+      primaryNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+
+    </script>
+  </body>
+</html>
