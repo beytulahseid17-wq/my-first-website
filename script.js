@@ -1,33 +1,30 @@
 const hero = document.getElementById("hero");
 const menuToggle = document.getElementById("menuToggle");
 const mainNav = document.getElementById("mainNav");
+const themeToggle = document.getElementById("themeToggle");
 const welcomeText = document.querySelector(".welcome-text");
+const skillsTitle = document.querySelector(".skills-title");
+const skillCards = document.querySelectorAll(".skill-card");
 const profileImage = document.getElementById("profileImage");
 const imagePlaceholder = document.getElementById("imagePlaceholder");
 const interactiveButtons = document.querySelectorAll(".interactive-btn");
-const skillButtons = document.querySelectorAll(".skill-btn");
-const themeToggle = document.getElementById("themeToggle");
 
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme) {
-  document.body.setAttribute("data-theme", savedTheme);
-} else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-  document.body.setAttribute("data-theme", "dark");
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
+  themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
 }
 
-const applyThemeIcon = () => {
-  const isDark = document.body.getAttribute("data-theme") === "dark";
-  themeToggle.textContent = isDark ? "☀️" : "🌙";
-};
+function initializeTheme() {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark" || savedTheme === "light") {
+    setTheme(savedTheme);
+    return;
+  }
 
-applyThemeIcon();
-
-themeToggle.addEventListener("click", () => {
-  const currentTheme = document.body.getAttribute("data-theme") === "dark" ? "light" : "dark";
-  document.body.setAttribute("data-theme", currentTheme);
-  localStorage.setItem("theme", currentTheme);
-  applyThemeIcon();
-});
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  setTheme(systemDark ? "dark" : "light");
+}
 
 window.addEventListener("scroll", () => {
   hero.classList.toggle("scrolled", window.scrollY > 10);
@@ -38,7 +35,14 @@ menuToggle.addEventListener("click", () => {
   menuToggle.setAttribute("aria-expanded", String(isOpen));
 });
 
+themeToggle.addEventListener("click", () => {
+  const currentTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  setTheme(currentTheme === "dark" ? "light" : "dark");
+});
+
 window.addEventListener("DOMContentLoaded", () => {
+  initializeTheme();
+
   requestAnimationFrame(() => {
     welcomeText.classList.add("show");
   });
@@ -50,11 +54,23 @@ window.addEventListener("DOMContentLoaded", () => {
     imagePlaceholder.style.pointerEvents = "none";
   }, 650);
 
-  skillButtons.forEach((button, index) => {
-    setTimeout(() => {
-      button.classList.add("show");
-    }, 300 + index * 120);
-  });
+  const skillsObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        skillsTitle.classList.add("show");
+        skillCards.forEach((card, index) => {
+          setTimeout(() => card.classList.add("show"), index * 110);
+        });
+
+        skillsObserver.disconnect();
+      });
+    },
+    { threshold: 0.28 }
+  );
+
+  skillsObserver.observe(document.querySelector(".skills"));
 });
 
 interactiveButtons.forEach((button) => {
