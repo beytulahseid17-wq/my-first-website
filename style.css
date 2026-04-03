@@ -82,7 +82,7 @@ main { margin-top: 90px; }
 }
 .intro__content { grid-area: content; }
 .intro__image-card { grid-area: image; position: relative; min-height: 350px; }
-.intro__description { grid-area: description; text-align: center; margin: 0 auto; max-width: 62ch; color: var(--muted); }
+.intro__description { grid-area: description; margin: 0 auto; max-width: 62ch; color: var(--muted); }
 
 .welcome-text.show { transform: translateY(0) scale(1); opacity: 1; }
 
