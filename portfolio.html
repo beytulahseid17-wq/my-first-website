@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Preview Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        color: #f2f5ff;
+        background: radial-gradient(circle at 15% 15%, #23408f 0%, #121731 45%, #090f1d 100%);
+      }
+      .wrap { width: min(1100px, 92%); margin: 3rem auto; }
+      .hero {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 22px;
+        padding: 2rem;
+        box-shadow: 0 24px 45px rgba(0, 0, 0, 0.35);
+      }
+      .title { font-size: clamp(2rem, 5vw, 3.6rem); margin: 0 0 0.5rem; }
+      .subtitle { margin: 0 0 1.4rem; color: #d5ddfa; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 16px;
+        padding: 1rem;
+      }
+      .badge {
+        display: inline-block;
+        padding: 0.3rem 0.7rem;
+        border-radius: 999px;
+        background: #5c7cff;
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+      }
+      a.back {
+        display: inline-block;
+        margin-top: 1.2rem;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      @media (max-width: 800px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <section class="hero">
+        <h1 class="title">Premium Portfolio Experience</h1>
+        <p class="subtitle">Cool appearance, animated cards, and premium structure that feels modern and professional.</p>
+
+        <div class="grid">
+          <article class="card"><span class="badge">Feature</span><h3>3D Visual Feel</h3><p>Modern gradients and deep glassmorphism layers.</p></article>
+          <article class="card"><span class="badge">Feature</span><h3>Fast UX</h3><p>Designed to be static and smooth with no database requirement.</p></article>
+          <article class="card"><span class="badge">Feature</span><h3>Client Ready</h3><p>Great starting point for real projects and paid work.</p></article>
+        </div>
+
+        <a class="back" href="index.html">← Back to main page</a>
+      </section>
+    </div>
+  </body>
+</html>
