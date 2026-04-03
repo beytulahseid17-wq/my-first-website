@@ -8,6 +8,10 @@ const skillCards = document.querySelectorAll(".skill-card");
 const profileImage = document.getElementById("profileImage");
 const imagePlaceholder = document.getElementById("imagePlaceholder");
 const interactiveButtons = document.querySelectorAll(".interactive-btn");
+const projectCard = document.getElementById("projectCard");
+const projectModal = document.getElementById("projectModal");
+const projectModalClose = document.getElementById("projectModalClose");
+const projectModalOverlay = document.getElementById("projectModalOverlay");
 
 function setTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
@@ -26,6 +30,18 @@ function initializeTheme() {
   setTheme(systemDark ? "dark" : "light");
 }
 
+function openProjectModal() {
+  projectModal.classList.add("open");
+  projectModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeProjectModal() {
+  projectModal.classList.remove("open");
+  projectModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
 window.addEventListener("scroll", () => {
   hero.classList.toggle("scrolled", window.scrollY > 10);
 });
@@ -38,6 +54,23 @@ menuToggle.addEventListener("click", () => {
 themeToggle.addEventListener("click", () => {
   const currentTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
   setTheme(currentTheme === "dark" ? "light" : "dark");
+});
+
+projectCard.addEventListener("click", openProjectModal);
+projectCard.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openProjectModal();
+  }
+});
+
+projectModalClose.addEventListener("click", closeProjectModal);
+projectModalOverlay.addEventListener("click", closeProjectModal);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && projectModal.classList.contains("open")) {
+    closeProjectModal();
+  }
 });
 
 window.addEventListener("DOMContentLoaded", () => {
