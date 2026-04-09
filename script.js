@@ -3,6 +3,7 @@ const menuToggle = document.getElementById("menuToggle");
 const mainNav = document.getElementById("mainNav");
 const themeToggle = document.getElementById("themeToggle");
 const welcomeText = document.querySelector(".welcome-text");
+const careerText = document.getElementById("careerText");
 const skillsTitle = document.querySelector(".skills-title");
 const skillCards = document.querySelectorAll(".skill-card");
 const profileImage = document.getElementById("profileImage");
@@ -83,6 +84,7 @@ window.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     profileImage.src = "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80";
     profileImage.classList.add("show");
+    careerText.classList.add("show");
     imagePlaceholder.style.opacity = "0";
     imagePlaceholder.style.pointerEvents = "none";
   }, 650);
