@@ -98,6 +98,12 @@ main { margin-top: 90px; }
   transform: translateX(0);
 }
 
+.gradient-text {
+  background: linear-gradient(90deg, #3b82f6, #9333ea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .welcome-word { margin: 0; font-size: clamp(3rem, 6vw, 5rem); line-height: 1; font-weight: 800; }
 .welcome-text {
   margin: 0.4rem 0 0.8rem;
