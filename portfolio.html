@@ -3,74 +3,273 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio Preview Page</title>
+    <title>Epictetus Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      :root { color-scheme: dark; }
-      * { box-sizing: border-box; }
+      :root {
+        --bg: linear-gradient(180deg, #1a1a1a 0%, #080808 100%);
+        --surface: rgba(255, 230, 185, 0.08);
+        --line: rgba(237, 199, 139, 0.28);
+        --gold: #e8c28e;
+        --text: #f5ead8;
+        --muted: #d5be9d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
       body {
         margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--text);
         font-family: "Poppins", sans-serif;
-        color: #f2f5ff;
-        background: radial-gradient(circle at 15% 15%, #23408f 0%, #121731 45%, #090f1d 100%);
+        scroll-behavior: smooth;
       }
-      .wrap { width: min(1100px, 92%); margin: 3rem auto; }
-      .hero {
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        border-radius: 22px;
-        padding: 2rem;
-        box-shadow: 0 24px 45px rgba(0, 0, 0, 0.35);
+
+      .container {
+        width: min(1180px, 92%);
+        margin: 0 auto;
       }
-      .title { font-size: clamp(2rem, 5vw, 3.6rem); margin: 0 0 0.5rem; }
-      .subtitle { margin: 0 0 1.4rem; color: #d5ddfa; }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(232, 194, 142, 0.2);
+      }
+
+      .topbar__inner {
+        min-height: 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .brand {
+        margin: 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+        color: var(--gold);
+        transform: translateX(-40px);
+        opacity: 0;
+        transition: transform 0.95s ease, opacity 0.95s ease;
+      }
+
+      .brand.show {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .nav {
+        display: flex;
         gap: 1rem;
       }
+
+      .nav a {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .hero {
+        padding: 3.4rem 0 2.4rem;
+      }
+
+      .hero__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .hero__image-wrap {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 22px 44px rgba(0, 0, 0, 0.35);
+      }
+
+      .hero__image {
+        width: 100%;
+        height: 100%;
+        min-height: 420px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .hero__content h2 {
+        margin: 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.6rem, 6vw, 5rem);
+        line-height: 0.95;
+      }
+
+      .hero__content p {
+        color: var(--muted);
+        font-size: 1.08rem;
+        max-width: 56ch;
+      }
+
+      .hero__btn {
+        margin-top: 0.7rem;
+        display: inline-block;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.65rem 1.35rem;
+        text-decoration: none;
+        color: var(--gold);
+      }
+
+      .cards {
+        padding: 1rem 0 3.4rem;
+      }
+
+      .cards__title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.1rem, 4vw, 3.2rem);
+        margin: 0 0 1rem;
+      }
+
+      .cards__grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.9rem;
+      }
+
       .card {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: var(--surface);
+        border: 1px solid var(--line);
         border-radius: 16px;
         padding: 1rem;
+        transform: translateY(26px);
+        opacity: 0;
+        transition: transform 0.6s ease, opacity 0.6s ease;
       }
-      .badge {
-        display: inline-block;
-        padding: 0.3rem 0.7rem;
-        border-radius: 999px;
-        background: #5c7cff;
-        font-size: 0.85rem;
-        margin-bottom: 0.4rem;
+
+      .card.show {
+        transform: translateY(0);
+        opacity: 1;
       }
-      a.back {
-        display: inline-block;
-        margin-top: 1.2rem;
-        color: #fff;
-        text-decoration: none;
-        font-weight: 700;
+
+      .card h3 {
+        font-family: "Cormorant Garamond", serif;
+        color: var(--gold);
+        margin: 0 0 0.45rem;
+        font-size: 1.55rem;
       }
-      @media (max-width: 800px) {
-        .grid { grid-template-columns: 1fr; }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      @media (max-width: 950px) {
+        .hero__grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cards__grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .nav {
+          gap: 0.7rem;
+        }
+
+        .cards__grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero__image {
+          min-height: 300px;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <section class="hero">
-        <h1 class="title">Premium Portfolio Experience</h1>
-        <p class="subtitle">Cool appearance, animated cards, and premium structure that feels modern and professional.</p>
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <h1 class="brand" id="brandText">Epictetus</h1>
+        <nav class="nav">
+          <a href="#hero">Hero</a>
+          <a href="#principles">Principles</a>
+          <a href="index.html">Back</a>
+        </nav>
+      </div>
+    </header>
 
-        <div class="grid">
-          <article class="card"><span class="badge">Feature</span><h3>3D Visual Feel</h3><p>Modern gradients and deep glassmorphism layers.</p></article>
-          <article class="card"><span class="badge">Feature</span><h3>Fast UX</h3><p>Designed to be static and smooth with no database requirement.</p></article>
-          <article class="card"><span class="badge">Feature</span><h3>Client Ready</h3><p>Great starting point for real projects and paid work.</p></article>
+    <main>
+      <section class="hero" id="hero">
+        <div class="container hero__grid">
+          <div class="hero__image-wrap">
+            <img
+              class="hero__image"
+              src="https://images.unsplash.com/photo-1609621838510-5ad474b7d25d?auto=format&fit=crop&w=1200&q=80"
+              alt="Classical statue inspired visual"
+            />
+          </div>
+
+          <div class="hero__content">
+            <h2>Timeless Wisdom</h2>
+            <p>
+              “There is only one way to happiness and that is to stop worrying about things beyond our will.”
+              Build disciplined thinking, practice intentional action, and lead your portfolio with quiet confidence.
+            </p>
+            <a href="#principles" class="hero__btn">Explore Principles</a>
+          </div>
         </div>
-
-        <a class="back" href="index.html">← Back to main page</a>
       </section>
-    </div>
+
+      <section class="cards" id="principles">
+        <div class="container">
+          <h3 class="cards__title">Core Principles</h3>
+          <div class="cards__grid" id="cardsGrid">
+            <article class="card reveal"><h3>Self-Discipline</h3><p>Practice consistent habits to sharpen focus and execution.</p></article>
+            <article class="card reveal"><h3>Inner Peace</h3><p>Keep calm in uncertainty and make choices with clarity.</p></article>
+            <article class="card reveal"><h3>Courage</h3><p>Face discomfort with intention to unlock real growth.</p></article>
+            <article class="card reveal"><h3>Resilience</h3><p>Turn setbacks into insight and continue with stronger strategy.</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const brandText = document.getElementById("brandText");
+      const revealCards = document.querySelectorAll(".reveal");
+
+      window.addEventListener("DOMContentLoaded", () => {
+        requestAnimationFrame(() => {
+          brandText.classList.add("show");
+        });
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      revealCards.forEach((card, index) => {
+        card.style.transitionDelay = `${index * 120}ms`;
+        observer.observe(card);
+      });
+    </script>
   </body>
 </html>
