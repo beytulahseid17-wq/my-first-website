@@ -108,9 +108,10 @@ main { margin-top: 90px; }
         margin-top: 0.7rem;
         display: inline-block;
         border: 1px solid var(--line);
-        border-radius: 999px;
+        border-radius: 5px;
         padding: 0.65rem 1.35rem;
-        text-decoration: none;
+        text-decoration: bold;
+        font-size: clamp(1.8rem, 4vw, 3rem);
         background: linear-gradient(90deg, #3b82f6, #9333ea);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
