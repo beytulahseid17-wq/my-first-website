@@ -104,6 +104,22 @@ main { margin-top: 90px; }
   -webkit-text-fill-color: transparent;
 }
 
+      .b_tn {
+        margin-top: 0.7rem;
+        display: inline-block;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.65rem 1.35rem;
+        text-decoration: none;
+        color: var(--gold);
+        transition: color 0.3s ease, background-color 0.3s ease;
+      }
+
+      .b_tn:hover {
+        color: #111;
+        background-color: var(--gold-hover);
+      }
+
 .welcome-word { margin: 0; font-size: clamp(3rem, 6vw, 5rem); line-height: 1; font-weight: 800; }
 .welcome-text {
   margin: 0.4rem 0 0.8rem;
