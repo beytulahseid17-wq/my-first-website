@@ -12,20 +12,17 @@
     />
     <style>
       :root {
-        --bg: linear-gradient(180deg, #1a1a1a 0%, #080808 100%);
+        --bg: radial-gradient(circle at 0% 0%, #2a2a2a 0%, #181818 35%, #070707 100%);
         --surface: rgba(255, 230, 185, 0.08);
         --line: rgba(237, 199, 139, 0.28);
         --gold: #e8c28e;
+        --gold-hover: #ffd4a0;
         --text: #f5ead8;
         --muted: #d5be9d;
       }
 
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
+      * { box-sizing: border-box; }
+      html, body {
         margin: 0;
         padding: 0;
         background: var(--bg);
@@ -34,26 +31,18 @@
         scroll-behavior: smooth;
       }
 
-      .container {
-        width: min(1180px, 92%);
-        margin: 0 auto;
-      }
+      .container { width: min(1180px, 92%); margin: 0 auto; }
 
       .topbar {
         position: sticky;
         top: 0;
-        z-index: 30;
+        z-index: 100;
         background: rgba(0, 0, 0, 0.55);
         backdrop-filter: blur(8px);
         border-bottom: 1px solid rgba(232, 194, 142, 0.2);
       }
 
-      .topbar__inner {
-        min-height: 70px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+      .topbar__inner { min-height: 70px; display: flex; justify-content: space-between; align-items: center; }
 
       .brand {
         margin: 0;
@@ -64,25 +53,23 @@
         opacity: 0;
         transition: transform 0.95s ease, opacity 0.95s ease;
       }
+      .brand.show { transform: translateX(0); opacity: 1; }
 
-      .brand.show {
-        transform: translateX(0);
-        opacity: 1;
-      }
-
-      .nav {
-        display: flex;
-        gap: 1rem;
-      }
-
-      .nav a {
-        color: var(--text);
-        text-decoration: none;
-        font-weight: 500;
-      }
+      .nav { display: flex; gap: 1rem; }
+      .nav a { color: var(--text); text-decoration: none; font-weight: 500; }
 
       .hero {
-        padding: 3.4rem 0 2.4rem;
+        height: 195vh;
+        position: relative;
+      }
+
+      .hero__sticky {
+        position: sticky;
+        top: 72px;
+        min-height: calc(100vh - 72px);
+        display: grid;
+        align-items: center;
+        overflow: hidden;
       }
 
       .hero__grid {
@@ -90,22 +77,52 @@
         grid-template-columns: 1fr 1fr;
         align-items: center;
         gap: 1.5rem;
+        transition: grid-template-columns 0.6s ease;
       }
 
-      .hero__image-wrap {
+      .hero__media {
+        position: relative;
         border: 1px solid var(--line);
         border-radius: 24px;
         overflow: hidden;
         box-shadow: 0 22px 44px rgba(0, 0, 0, 0.35);
+        transform: translateX(-70px);
+        opacity: 0;
+        transition: transform 0.9s ease, opacity 0.9s ease, width 0.9s ease, height 0.9s ease, border-radius 0.9s ease;
       }
+
+      .hero__media.show { transform: translateX(0); opacity: 1; }
 
       .hero__image {
         width: 100%;
         height: 100%;
         min-height: 420px;
         object-fit: cover;
+        object-position: center;
         display: block;
+        transform: scale(var(--hero-zoom, 1));
+        transition: transform 0.18s linear, filter 0.9s ease;
       }
+
+      .laptop-badge {
+        position: absolute;
+        bottom: 14px;
+        left: 14px;
+        padding: 0.5rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.45);
+        color: var(--gold);
+        font-size: 0.9rem;
+      }
+
+      .hero__content {
+        transform: translateX(70px);
+        opacity: 0;
+        transition: transform 0.9s ease, opacity 0.9s ease, text-align 0.6s ease;
+      }
+
+      .hero__content.show { transform: translateX(0); opacity: 1; }
 
       .hero__content h2 {
         margin: 0;
@@ -114,11 +131,7 @@
         line-height: 0.95;
       }
 
-      .hero__content p {
-        color: var(--muted);
-        font-size: 1.08rem;
-        max-width: 56ch;
-      }
+      .hero__content p { color: var(--muted); font-size: 1.08rem; max-width: 56ch; }
 
       .hero__btn {
         margin-top: 0.7rem;
@@ -128,24 +141,17 @@
         padding: 0.65rem 1.35rem;
         text-decoration: none;
         color: var(--gold);
+        transition: color 0.3s ease, background-color 0.3s ease;
       }
 
-      .cards {
-        padding: 1rem 0 3.4rem;
+      .hero__btn:hover {
+        color: #111;
+        background-color: var(--gold-hover);
       }
 
-      .cards__title {
-        font-family: "Cormorant Garamond", serif;
-        font-size: clamp(2.1rem, 4vw, 3.2rem);
-        margin: 0 0 1rem;
-      }
-
-      .cards__grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0.9rem;
-      }
-
+      .cards { padding: 1rem 0 3.4rem; }
+      .cards__title { font-family: "Cormorant Garamond", serif; font-size: clamp(2.1rem, 4vw, 3.2rem); margin: 0 0 1rem; }
+      .cards__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.9rem; }
       .card {
         background: var(--surface);
         border: 1px solid var(--line);
@@ -155,46 +161,51 @@
         opacity: 0;
         transition: transform 0.6s ease, opacity 0.6s ease;
       }
+      .card.show { transform: translateY(0); opacity: 1; }
+      .card h3 { font-family: "Cormorant Garamond", serif; color: var(--gold); margin: 0 0 0.45rem; font-size: 1.55rem; }
+      .card p { margin: 0; color: var(--muted); }
 
-      .card.show {
-        transform: translateY(0);
-        opacity: 1;
+      body.hero-scrolled .hero__grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        position: relative;
       }
 
-      .card h3 {
-        font-family: "Cormorant Garamond", serif;
-        color: var(--gold);
-        margin: 0 0 0.45rem;
-        font-size: 1.55rem;
+      body.hero-scrolled .hero__content {
+        order: 2;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: min(760px, 88%);
+        z-index: 2;
+        padding: 1rem 1.2rem;
+        border-radius: 14px;
+        background: rgba(0, 0, 0, 0.36);
+        backdrop-filter: blur(3px);
       }
 
-      .card p {
-        margin: 0;
-        color: var(--muted);
+      body.hero-scrolled .hero__content p {
+        margin-inline: auto;
+      }
+
+      body.hero-scrolled .hero__media {
+        order: 2;
+        border-radius: 0;
       }
 
       @media (max-width: 950px) {
-        .hero__grid {
-          grid-template-columns: 1fr;
-        }
-
-        .cards__grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+        .hero { height: 175vh; }
+        .hero__grid { grid-template-columns: 1fr; }
+        .cards__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
 
       @media (max-width: 640px) {
-        .nav {
-          gap: 0.7rem;
-        }
-
-        .cards__grid {
-          grid-template-columns: 1fr;
-        }
-
-        .hero__image {
-          min-height: 300px;
-        }
+        .hero { height: 160vh; }
+        .nav { gap: 0.7rem; font-size: 0.95rem; }
+        .cards__grid { grid-template-columns: 1fr; }
+        .hero__image { min-height: 300px; }
       }
     </style>
   </head>
@@ -212,22 +223,27 @@
 
     <main>
       <section class="hero" id="hero">
-        <div class="container hero__grid">
-          <div class="hero__image-wrap">
-            <img
-              class="hero__image"
-              src="https://images.unsplash.com/photo-1609621838510-5ad474b7d25d?auto=format&fit=crop&w=1200&q=80"
-              alt="Classical statue inspired visual"
-            />
-          </div>
+        <div class="hero__sticky">
+          <div class="container hero__grid">
+            <div class="hero__media" id="heroMedia">
+              <img
+                class="hero__image"
+                id="heroImage"
+                src="https://images.unsplash.com/photo-1634205457927-b4d7f7f1c7b0?auto=format&fit=crop&w=1400&q=80"
+                data-scroll-src="https://images.unsplash.com/photo-1609621838510-5ad474b7d25d?auto=format&fit=crop&w=1400&q=80"
+                alt="Ancient Greek philosopher statue combined with modern laptop context"
+              />
+              <div class="laptop-badge">💻 Modern Laptop + Classic Wisdom</div>
+            </div>
 
-          <div class="hero__content">
-            <h2>Timeless Wisdom</h2>
-            <p>
-              “There is only one way to happiness and that is to stop worrying about things beyond our will.”
-              Build disciplined thinking, practice intentional action, and lead your portfolio with quiet confidence.
-            </p>
-            <a href="#principles" class="hero__btn">Explore Principles</a>
+            <div class="hero__content" id="heroContent">
+              <h2>Classical Mindset, Modern Creation</h2>
+              <p>
+                A neutral dark stage that blends ancient Greek philosophy visuals with modern digital craftsmanship.
+                Scroll down and the image expands while content shifts smoothly to the center above it.
+              </p>
+              <a href="#principles" class="hero__btn">Explore Principles</a>
+            </div>
           </div>
         </div>
       </section>
@@ -247,13 +263,34 @@
 
     <script>
       const brandText = document.getElementById("brandText");
+      const heroMedia = document.getElementById("heroMedia");
+      const heroContent = document.getElementById("heroContent");
+      const heroImage = document.getElementById("heroImage");
+      const heroSection = document.getElementById("hero");
       const revealCards = document.querySelectorAll(".reveal");
 
       window.addEventListener("DOMContentLoaded", () => {
         requestAnimationFrame(() => {
           brandText.classList.add("show");
+          heroMedia.classList.add("show");
+          heroContent.classList.add("show");
         });
       });
+
+      const handleHeroScroll = () => {
+        const sectionRect = heroSection.getBoundingClientRect();
+        const maxScroll = Math.max(heroSection.offsetHeight - window.innerHeight, 1);
+        const rawProgress = -sectionRect.top / maxScroll;
+        const zoomProgress = Math.min(Math.max(rawProgress, 0), 1);
+        const zoomValue = 1 + zoomProgress * 0.42;
+        heroImage.style.setProperty("--hero-zoom", zoomValue.toFixed(3));
+
+        const shouldExpand = zoomProgress > 0.22;
+        document.body.classList.toggle("hero-scrolled", shouldExpand);
+      };
+
+      handleHeroScroll();
+      window.addEventListener("scroll", handleHeroScroll);
 
       const observer = new IntersectionObserver(
         (entries) => {
