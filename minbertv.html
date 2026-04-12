@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minber | Connect Everywhere</title>
+    <meta
+      name="description"
+      content="Minber TV official social hub. Follow us across YouTube, Instagram, TikTok, X, Facebook, and Telegram."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+	<style>
+	:root {
+  --bg: #070b17;
+  --surface: rgba(15, 23, 42, 0.55);
+  --text: #e7edff;
+  --muted: #afbad8;
+  --line: rgba(255, 255, 255, 0.12);
+  --primary: #6ea8ff;
+  --primary-2: #8a7dff;
+  --glow: rgba(110, 168, 255, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 10% 20%, #16233c 0%, var(--bg) 45%), var(--bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(36px);
+  z-index: -2;
+  animation: float 16s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 320px;
+  height: 320px;
+  background: rgba(101, 145, 255, 0.24);
+  top: -90px;
+  right: -70px;
+}
+
+.orb-2 {
+  width: 260px;
+  height: 260px;
+  background: rgba(138, 125, 255, 0.2);
+  bottom: -80px;
+  left: -60px;
+  animation-delay: -7s;
+}
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(circle at center, black 45%, transparent 90%);
+  opacity: 0.35;
+}
+
+.topbar,
+.container,
+.footer {
+  width: min(1100px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.topbar {
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(12, 19, 35, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+.brand {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.brand-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: linear-gradient(140deg, var(--primary), var(--primary-2));
+  box-shadow: 0 0 24px var(--glow);
+}
+
+.cta,
+.btn {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.cta {
+  border: 1px solid var(--line);
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+}
+
+.container {
+  padding: 4.4rem 0 2.2rem;
+}
+
+.hero {
+  max-width: 760px;
+}
+
+.eyebrow {
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.hero h1 {
+  margin: 0.6rem 0 1rem;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1.12;
+}
+
+.lead {
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.7;
+  max-width: 64ch;
+}
+
+.hero-actions {
+  margin-top: 1.6rem;
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: linear-gradient(140deg, var(--primary), var(--primary-2));
+  box-shadow: 0 12px 30px rgba(110, 168, 255, 0.3);
+}
+
+.btn-ghost {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.links-section {
+  margin-top: 3.4rem;
+}
+
+.links-section h2,
+.about h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.section-subtitle {
+  margin-top: 0.5rem;
+  color: var(--muted);
+}
+
+.cards {
+  margin-top: 1.35rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.9rem;
+}
+
+.social-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  background: var(--surface);
+  backdrop-filter: blur(6px);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transform-style: preserve-3d;
+}
+
+.social-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(138, 125, 255, 0.6);
+  box-shadow: 0 14px 35px rgba(6, 15, 31, 0.45);
+}
+
+.icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  font-weight: 700;
+}
+
+.social-card h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.social-card p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.about {
+  margin-top: 3rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 1.25rem;
+}
+
+.about p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.footer {
+  padding: 1rem 0 2.2rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUp 0.7s ease forwards;
+}
+
+.hero.fade-up {
+  animation-delay: 0.05s;
+}
+
+.links-section.fade-up {
+  animation-delay: 0.18s;
+}
+
+.about.fade-up {
+  animation-delay: 0.28s;
+}
+
+.footer.fade-up {
+  animation-delay: 0.35s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(15px, -18px);
+  }
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    border-radius: 16px;
+  }
+
+  .cta {
+    display: none;
+  }
+}
+
+	</style>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-1" aria-hidden="true"></div>
+    <div class="bg-orb orb-2" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="topbar fade-up">
+      <a class="brand" href="#" aria-label="Minber TV Home">
+        <span class="brand-dot"></span>
+        <span>lorem TV</span>
+      </a>
+      <a class="cta" href="#links">Explore Links</a>
+    </header>
+
+    <main class="container">
+      <section class="hero fade-up" id="home">
+        <p class="eyebrow">Official Social Hub</p>
+        <h1>One beautiful place for all Minber TV channels.</h1>
+        <p class="lead">
+          Stay connected with our latest videos, clips, live updates, and community posts across every platform.
+        </p>
+        <div class="hero-actions">
+          <a href="#links" class="btn btn-primary">View Social Links</a>
+          <a href="#about" class="btn btn-ghost">About Minber TV</a>
+        </div>
+      </section>
+
+      <section class="links-section fade-up" id="links">
+        <h2>Connect With Us</h2>
+        <p class="section-subtitle">Tap any platform below to follow Minber TV.</p>
+
+        <div class="cards" id="socialCards">
+          <a class="social-card" href="https://www.youtube.com" target="_blank" rel="noreferrer noopener">
+            <span class="icon">▶</span>
+            <div>
+              <h3>YouTube</h3>
+              <p>Watch full episodes and highlights.</p>
+            </div>
+          </a>
+
+          <a class="social-card" href="https://www.instagram.com" target="_blank" rel="noreferrer noopener">
+            <span class="icon">◎</span>
+            <div>
+              <h3>Instagram</h3>
+              <p>Behind-the-scenes moments and stories.</p>
+            </div>
+          </a>
+
+          <a class="social-card" href="https://www.tiktok.com" target="_blank" rel="noreferrer noopener">
+            <span class="icon">♪</span>
+            <div>
+              <h3>TikTok</h3>
+              <p>Short clips, trends, and daily updates.</p>
+            </div>
+          </a>
+
+          <a class="social-card" href="https://x.com" target="_blank" rel="noreferrer noopener">
+            <span class="icon">𝕏</span>
+            <div>
+              <h3>X (Twitter)</h3>
+              <p>News, announcements, and live commentary.</p>
+            </div>
+          </a>
+
+          <a class="social-card" href="https://www.facebook.com" target="_blank" rel="noreferrer noopener">
+            <span class="icon">f</span>
+            <div>
+              <h3>Facebook</h3>
+              <p>Community posts and events.</p>
+            </div>
+          </a>
+
+          <a class="social-card" href="https://telegram.org" target="_blank" rel="noreferrer noopener">
+            <span class="icon">✈</span>
+            <div>
+              <h3>Telegram</h3>
+              <p>Direct updates and instant notifications.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="about" class="about fade-up">
+        <h2>About Minber TV</h2>
+        <p>
+          Minber TV brings stories, discussions, and engaging content to audiences everywhere. This landing page is your
+          central gateway to all official channels.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer fade-up">
+      <p>© <span id="year"></span> Minber TV. All rights reserved.</p>
+    </footer>
+
+    <script>
+	const yearEl = document.getElementById("year");
+const cards = document.querySelectorAll(".social-card");
+
+yearEl.textContent = new Date().getFullYear();
+
+cards.forEach((card) => {
+  card.addEventListener("mousemove", (event) => {
+    const rect = card.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width;
+    const py = (event.clientY - rect.top) / rect.height;
+
+    const rotateY = (px - 0.5) * 8;
+    const rotateX = (0.5 - py) * 8;
+
+    card.style.transform = `translateY(-4px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+  });
+
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "translateY(0) rotateX(0) rotateY(0)";
+  });
+});
+
+	</script>
+  </body>
+</html>
