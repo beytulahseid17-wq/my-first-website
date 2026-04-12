@@ -97,13 +97,6 @@ main { margin-top: 90px; }
   opacity: 1;
   transform: translateX(0);
 }
-
-.gradient-text {
-  background: linear-gradient(90deg, #3b82f6, #9333ea);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
       .b_tn {
         margin-top: 0.7rem;
         display: inline-block;
@@ -117,7 +110,7 @@ main { margin-top: 90px; }
         -webkit-text-fill-color: transparent;
       }
 
-.welcome-word { margin: 0; font-size: clamp(3rem, 6vw, 5rem); line-height: 1; font-weight: 800; }
+.welcome-word { margin: 0; font-size: 50px; line-height: 1; font-weight: 800; }
 .welcome-text {
   margin: 0.4rem 0 0.8rem;
   font-size: clamp(1.8rem, 4vw, 3rem);
