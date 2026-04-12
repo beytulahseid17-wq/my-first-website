@@ -10,6 +10,42 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <style>
+      .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: linear-gradient(140deg, var(--primary), var(--primary-2));
+  box-shadow: 0 12px 30px rgba(110, 168, 255, 0.3);
+}
+	:root {
+  --bg: #070b17;
+  --surface: rgba(15, 23, 42, 0.55);
+  --text: #e7edff;
+  --muted: #afbad8;
+  --line: rgba(255, 255, 255, 0.12);
+  --primary: #6ea8ff;
+  --primary-2: #8a7dff;
+  --glow: rgba(110, 168, 255, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+    </style>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -40,10 +76,11 @@
       <section class="intro" id="home">
         <div class="container intro__grid">
           <div class="intro__content">
-            <h6 class="welcome-word"><em class="gradient-text">Frontend Developer</em></h6><br>
+            <h6 class="welcome-word">Frontend Developer</h6><br>
+            <h4>Personal Portfolio, Blog, and small bussiness developer</h4>
             <p class="welcome-text" style=" font-size: 20px;">Portfolio, blog and landing pages websites built for speed and simplicity.</p>
            <br> <div class="cta-group">
-              <button class="b_tn">Request A Website</button>
+              <button class="btn btn-primary">Request A Website</button>
             </div>
             <div class="social-group" aria-label="social links">
               <a class="social-btn" href="#" aria-label="Instagram">
@@ -150,7 +187,8 @@
         <button class="project-modal__close" id="projectModalClose" aria-label="Close preview">×</button>
         <h3 id="modalTitle">Portfolio Website Preview</h3>
         <img src="preview.png" alt="Preview of portfolio website" class="project-modal__image" />
-        <button class="social-btn">HTML</button>  <br> <button class="social-btn">CSS</button> <br>  <button class="social-btn">JAVASCRIPT</button> 
+        <button class="social-btn">HTML</button>   <button class="social-btn">CSS</button>   <button class="social-btn">JAVASCRIPT</button> 
+        <br>
         <a href="portfolio.html" class="btn btn--primary project-modal__preview">Preview</a>
       </div>
     </div>
