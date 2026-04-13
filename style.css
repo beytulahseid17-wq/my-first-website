@@ -26,7 +26,7 @@
 * { box-sizing: border-box; }
 html, body {
   margin: 0;
-  padding: 0;
+  padding: 80px 20px;
   font-family: "Poppins", sans-serif;
   background: var(--bg);
   color: var(--text);
@@ -119,7 +119,9 @@ main { margin-top: 90px; }
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
 .welcome-text.show { transform: translateY(0) scale(1); opacity: 1; }
-
+p {
+    line-height: 1.6;
+}
 .cta-group, .social-group { display: flex; gap: 0.8rem; flex-wrap: wrap; }
 .social-group { margin-top: 1rem; }
 .btn, .social-btn, .skill-card {
@@ -157,8 +159,8 @@ main { margin-top: 90px; }
 }
 .project-card--feature { width: min(700px, 100%); cursor: pointer; }
 .project-card__image { width: 100%; height: 280px; object-fit: cover; border-radius: 12px; }
-.project-card__body h3 { margin: 0.9rem 0 0.3rem; }
-.project-card__body p { margin: 0; color: var(--muted); }
+.project-card__body h3 { margin: 0.9rem 0 0.3rem; margin-bottom: 10px; }
+.project-card__body p { margin: 0; margin-bottom: 10px; color: var(--muted); }
 
 .contact { background: var(--skills-bg); color: #fff; text-align: center; }
 
