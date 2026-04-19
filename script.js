@@ -86,7 +86,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   setTimeout(() => {
-    profileImage.src = "https://chatgpt.com/backend-api/estuary/content?id=file_0000000064b471fd91ce496f754337fa&ts=493504&p=fs&cid=1&sig=25b06989179895aa5ef2201d3304d7a629a8050d23f0edb195d7036bdf2af955&v=0";
+    profileImage.src = "pro.png";
     profileImage.classList.add("show");
     careerText.classList.add("show");
     imagePlaceholder.style.opacity = "0";
