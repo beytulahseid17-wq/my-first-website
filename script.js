@@ -1,4 +1,4 @@
-const hero = document.getElementById("hero");
+	const hero = document.getElementById("hero");
 const menuToggle = document.getElementById("menuToggle");
 const mainNav = document.getElementById("mainNav");
 const themeToggle = document.getElementById("themeToggle");
@@ -9,14 +9,30 @@ const skillCards = document.querySelectorAll(".skill-card");
 const profileImage = document.getElementById("profileImage");
 const imagePlaceholder = document.getElementById("imagePlaceholder");
 const interactiveButtons = document.querySelectorAll(".interactive-btn");
-const projectCard = document.getElementById("projectCard");
+const projectsSection = document.getElementById("projects");
+const projectsList = document.getElementById("projectsList");
 const projectModal = document.getElementById("projectModal");
 const projectModalClose = document.getElementById("projectModalClose");
 const projectModalOverlay = document.getElementById("projectModalOverlay");
-const projectcard = document.getElementById("projectcard");
-const projectmodal = document.getElementById("projectmodal");
-const projectmodalclose = document.getElementById("projectmodalclose");
-const projectmodaloverlay = document.getElementById("projectmodaloverlay");
+const projectModalImage = document.getElementById("projectModalImage");
+const projectModalLink = document.getElementById("projectModalLink");
+
+const projectData = [
+  {
+    title: "Portfolio Website",
+    description: "3D animation cartoon inspired portfolio concept used by modern companies.",
+    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1200&q=80",
+    previewImage: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80",
+    previewLink: "portfolio.html"
+  },
+  {
+    title: "Business Landing Page",
+    description: "Conversion-focused landing page for a small business with clean sections and CTA flow.",
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
+    previewImage: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=1200&q=80",
+    previewLink: "portfolio.html"
+  }
+];
 
 function setTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
@@ -35,7 +51,33 @@ function initializeTheme() {
   setTheme(systemDark ? "dark" : "light");
 }
 
-function openProjectModal() {
+function renderProjects() {
+  projectsList.innerHTML = "";
+
+  projectData.forEach((project) => {
+    const card = document.createElement("article");
+    card.className = "project-card project-card--feature";
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `Open ${project.title} preview`);
+    card.dataset.previewImage = project.previewImage;
+    card.dataset.previewLink = project.previewLink;
+
+    card.innerHTML = `
+      <img src="${project.image}" alt="${project.title}" class="project-card__image" />
+      <div class="project-card__body">
+        <h3>${project.title}</h3>
+        <p>${project.description}</p>
+      </div>
+    `;
+
+    projectsList.appendChild(card);
+  });
+}
+
+function openProjectModal(card) {
+  projectModalImage.src = card.dataset.previewImage;
+  projectModalLink.href = card.dataset.previewLink;
   projectModal.classList.add("open");
   projectModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -61,12 +103,18 @@ themeToggle.addEventListener("click", () => {
   setTheme(currentTheme === "dark" ? "light" : "dark");
 });
 
-projectCard.addEventListener("click", openProjectModal);
-projectCard.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    openProjectModal();
-  }
+projectsSection.addEventListener("click", (event) => {
+  const card = event.target.closest(".project-card--feature");
+  if (!card) return;
+  openProjectModal(card);
+});
+
+projectsSection.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const card = event.target.closest(".project-card--feature");
+  if (!card) return;
+  event.preventDefault();
+  openProjectModal(card);
 });
 
 projectModalClose.addEventListener("click", closeProjectModal);
@@ -80,6 +128,7 @@ document.addEventListener("keydown", (event) => {
 
 window.addEventListener("DOMContentLoaded", () => {
   initializeTheme();
+  renderProjects();
 
   requestAnimationFrame(() => {
     welcomeText.classList.add("show");
@@ -119,56 +168,7 @@ interactiveButtons.forEach((button) => {
   });
 });
 
-
-
-function openprojectmodal() {
-  projectmodal.classList.add("open");
-  projectmodal.setAttribute("aria-hidden", "false");
-  document.body.classList.add("modal-open");
-}
-
-function closeprojectmodal() {
-  projectmodal.classList.remove("open");
-  projectmodal.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("modal-open");
-}
-
-projectcard.addEventListener("click", openprojectmodal);
-projectcard.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    openProjectModal();
-  }
-});
-
-projectmodalclose.addEventListener("click", closeprojectmodal);
-projectmodaloverlay.addEventListener("click", closeprojectmodal);
-
-function openprojectmodal() {
-  projectmodal.classList.add("open");
-  projectmodal.setAttribute("aria-hidden", "false");
-  document.body.classList.add("modal-open");
-}
-
-function closeprojectmodal() {
-  projectmodal.classList.remove("open");
-  projectmodal.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("modal-open");
-}
-
-projectcard.addEventListener("click", openprojectmodal);
-projectcard.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    openprojectmodal();
-  }
-});
-
-projectmodalclose.addEventListener("click", closeprojectmodal);
-projectmodaloverlay.addEventListener("click", closeprojectmodal);
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && projectmodal.classList.contains("open")) {
-    closeprojectmodal();
-  }
-});
+window.addProjectToSection = (project) => {
+  projectData.push(project);
+  renderProjects();
+};
