@@ -3,63 +3,171 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beytulah Seid Portfolio</title>
+    <title>My First Website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <style>
-      .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
-  border: 1px solid transparent;
-  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.btn-primary {
-  background: linear-gradient(140deg, var(--primary), var(--primary-2));
-  box-shadow: 0 12px 30px rgba(110, 168, 255, 0.3);
-}
+    <link rel="stylesheet" href="styles.css" />
+	<style>
 	:root {
-  --bg: #070b17;
-  --surface: rgba(15, 23, 42, 0.55);
-  --text: #e7edff;
-  --muted: #afbad8;
-  --line: rgba(255, 255, 255, 0.12);
-  --primary: #6ea8ff;
-  --primary-2: #8a7dff;
-  --glow: rgba(110, 168, 255, 0.45);
+  --bg: #f1f2f7;
+  --surface: #f6f6f6;
+  --surface-2: #ffffff;
+  --text: #1f2530;
+  --muted: #5d6677;
+  --primary: #3676ff;
+  --primary-dark: #2659c6;
+  --secondary: #eef2ff;
+  --line: #dfe4ef;
+  --shadow: 0 8px 20px rgba(20, 29, 47, 0.08);
+  --skills-bg: radial-gradient(circle at 25% 15%, #24324f 0%, #121a29 55%, #0b1220 100%);
 }
 
-* {
-  box-sizing: border-box;
+:root[data-theme="dark"] {
+  --bg: #0f1522;
+  --surface: #151d2b;
+  --surface-2: #1b2436;
+  --text: #f2f5ff;
+  --muted: #b8c3dc;
+  --secondary: #25314d;
+  --line: #2f3b57;
+  --shadow: 0 8px 20px rgba(0, 0, 0, 0.26);
 }
 
-    </style>
-    <link rel="stylesheet" href="style.css" />
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+}
+
+.hero { position: fixed; inset: 0 0 auto; z-index: 1000; transition: backdrop-filter 0.35s ease, background-color 0.35s ease; }
+.hero.scrolled { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); background: color-mix(in srgb, var(--surface) 68%, transparent); }
+.hero__tab {
+  width: 100%; background: color-mix(in srgb, var(--surface-2) 90%, transparent);
+  border-top-left-radius: 22px; border-top-right-radius: 22px; padding: 0.9rem 1.2rem;
+  box-shadow: 0 4px 14px rgba(18, 29, 62, 0.08);
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem;
+}
+.brand { text-decoration: none; color: var(--text); font-size: 2rem; font-weight: 800; }
+.hero__controls { justify-self: end; display: flex; align-items: center; gap: 0.6rem; }
+.theme-toggle { border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); color: var(--text); width: 42px; height: 42px; font-size: 1rem; cursor: pointer; }
+.nav { justify-self: end; display: flex; gap: 1.2rem; }
+.nav a { color: var(--text); text-decoration: none; font-weight: 600; }
+.menu-toggle { display: none; background: transparent; border: none; cursor: pointer; }
+.menu-toggle span { display: block; width: 26px; height: 3px; border-radius: 99px; margin: 5px 0; background: var(--text); }
+
+main { margin-top: 90px; }
+.container { width: min(1150px, 92%); margin: 0 auto; }
+
+.intro { background: var(--surface); box-shadow: var(--shadow); padding: 2.3rem 0; }
+.intro__grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-areas: "content image" "description description";
+  gap: 1.5rem 2rem;
+  align-items: center;
+}
+.intro__content { grid-area: content; display: grid; gap: 0.9rem; }
+.intro__image-card { grid-area: image; position: relative; min-height: 360px; }
+.intro__description { grid-area: description; text-align: center; margin: 0 auto; max-width: 64ch; color: var(--muted); opacity: 0; transform: translateX(58px); transition: transform 0.85s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.85s ease; }
+.intro__description.show { opacity: 1; transform: translateX(0); }
+
+.welcome-word { margin: 0; font-size: clamp(2.2rem, 4.5vw, 4rem); line-height: 1.1; font-weight: 800; }
+.welcome-text { margin: 0; font-size: clamp(1.15rem, 2.2vw, 1.6rem); font-weight: 500; transform: translateY(35px) scale(0.92); opacity: 0; transition: transform 0.8s ease, opacity 0.8s ease; }
+.welcome-text.show { transform: translateY(0) scale(1); opacity: 1; }
+
+.cta-group, .social-group { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn, .social-btn, .skill-card {
+  border: 1px solid transparent; border-radius: 999px; padding: 0.72rem 1.15rem; font-weight: 600; text-decoration: none;
+  cursor: pointer; transition: background-color 0.35s ease, color 0.35s ease, transform 0.3s ease;
+}
+.btn:hover, .social-btn:hover, .skill-card:hover, .project-card--feature:hover { transform: translateY(-2px); }
+.btn--primary { background: var(--primary); color: #fff; }
+.btn--primary:active, .btn--primary.is-clicked { background: var(--primary-dark); }
+.btn--secondary { background: var(--secondary); color: var(--text); }
+.btn--secondary:active, .btn--secondary.is-clicked { background: color-mix(in srgb, var(--secondary) 80%, #819fff); }
+.btn--neutral { background: color-mix(in srgb, var(--surface-2) 65%, #c7d2e9); color: var(--text); border-color: var(--line); }
+.social-btn { background: var(--surface-2); color: var(--text); border-color: var(--line); }
+
+.image-placeholder, .intro__image-card img {
+  position: absolute; inset: 0; width: 100%; height: 100%; border-top-left-radius: 44px; border-bottom-right-radius: 44px; border-top-right-radius: 10px; border-bottom-left-radius: 10px;
+}
+.image-placeholder { display: grid; place-content: center; color: var(--muted); background: repeating-linear-gradient(45deg, #dce3f5, #dce3f5 10px, #edf1fb 10px, #edf1fb 20px); }
+.intro__image-card img { object-fit: cover; opacity: 0; transform: translateX(58px); transition: transform 0.85s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.85s ease; }
+.intro__image-card img.show { opacity: 1; transform: translateX(0); }
+
+.about { padding: 2.5rem 0; }
+.about__grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.6rem; align-items: center; }
+.section-title { font-size: clamp(2rem, 3.3vw, 3rem); margin: 0 0 1rem; text-align: center; }
+.section-title--left { text-align: left; }
+.about__text { color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; }
+.about__image-wrap { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.about__image { display: block; width: 100%; height: 100%; min-height: 300px; object-fit: cover; }
+
+.skills { padding: 2.5rem 0; background: var(--skills-bg); }
+.skills-title { color: #fff; transform: translateX(30px) scale(0.95); opacity: 0; transition: transform 0.75s ease, opacity 0.75s ease; }
+.skills-title.show, .skill-card.show { opacity: 1; transform: translateX(0) scale(1); }
+.skills-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.skill-card { border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #f2f5ff; transform: translateX(44px) scale(0.95); opacity: 0; }
+
+.projects, .contact { padding: 2.5rem 0; }
+.project-grid--double { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; }
+.project-card { background: var(--surface-2); border-radius: 16px; padding: 1rem; box-shadow: var(--shadow); transition: transform 0.25s ease; }
+.project-card--feature { cursor: pointer; }
+.project-card__image { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; }
+.project-card__body h3 { margin: 0.9rem 0 0.3rem; }
+.project-card__body p { margin: 0; color: var(--muted); }
+
+.contact { background: var(--skills-bg); color: #fff; text-align: center; }
+.site-footer { padding: 2rem 0 2.6rem; background: var(--surface); border-top: 1px solid var(--line); }
+.site-footer__inner { display: grid; justify-items: center; gap: 1rem; }
+
+.project-modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 1200; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.3s ease; }
+.project-modal.open { opacity: 1; visibility: visible; pointer-events: auto; }
+.project-modal__overlay { position: absolute; inset: 0; background: rgba(10, 14, 28, 0.52); backdrop-filter: blur(7px); }
+.project-modal__content { position: relative; width: min(80vw, 940px); max-height: 88vh; overflow: auto; background: var(--surface-2); border-radius: 20px; padding: 1.2rem; box-shadow: 0 16px 45px rgba(0, 0, 0, 0.34); transform: translateY(22px) scale(0.96); transition: transform 0.35s ease; }
+.project-modal.open .project-modal__content { transform: translateY(0) scale(1); }
+.project-modal__close { position: absolute; top: 0.5rem; right: 0.7rem; background: transparent; border: none; color: var(--text); font-size: 2rem; cursor: pointer; }
+.project-modal__image { width: 100%; height: min(58vh, 420px); object-fit: cover; border-radius: 14px; display: block; margin: 0.6rem 0 1rem; }
+
+body.modal-open #mainContent, body.modal-open .hero, body.modal-open .site-footer { filter: blur(5px); }
+
+@media (max-width: 1024px) {
+  .menu-toggle { display: block; }
+  .nav { position: absolute; top: calc(100% + 8px); right: 12px; left: 12px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 0.8rem; box-shadow: var(--shadow); display: none; flex-direction: column; }
+  .nav.open { display: flex; }
+  .intro__grid, .about__grid, .project-grid--double { grid-template-columns: 1fr; grid-template-areas: "content" "image" "description"; }
+  .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .section-title--left { text-align: center; }
+}
+
+@media (max-width: 640px) {
+  .hero__tab { grid-template-columns: auto auto 1fr; }
+  .brand { font-size: 1.55rem; }
+  .btn, .social-btn { width: 100%; text-align: center; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .intro__image-card { min-height: 280px; }
+  .project-modal__content { width: min(92vw, 920px); }
+}
+
+	</style>
   </head>
   <body>
     <header class="hero" id="hero">
       <div class="hero__tab">
-        <a class="brand" href="#">Beytulah</a>
+        <a class="brand" href="#">MySite</a>
 
         <div class="hero__controls">
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
-
           <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
           </button>
         </div>
 
@@ -76,37 +184,19 @@
       <section class="intro" id="home">
         <div class="container intro__grid">
           <div class="intro__content">
-            <h4 style=" border: 2px #ccc; padding: 7px; border-radius: 3px; line-height: 1.6;">Frontend Developer</h4>
-            <h1 style=" line-height: 1.6;">Personal Portfolio, Blog, and small bussiness developer</h1>
-            <p class="welcome-text" style=" font-size: 30px; line-height: 1.6;"> I enjoy turning ideas into real, working products.</p>
-           <br> <div class="cta-group">
-              <button class="btn btn-primary">View My Work</button>
+            <h1 class="welcome-word">Front-End Developer</h1>
+            <h2 class="welcome-text">
+              I build personal portfolios, blogs, and small business websites, turning ideas into simple, functional digital products.
+            </h2>
+
+            <div class="cta-group">
+            <a href="#projects" class="btn btn--neutral">View my work</a>
             </div>
+
             <div class="social-group" aria-label="social links">
-              <a class="social-btn" href="#" aria-label="Instagram">
-                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm8.5 1.5h-8.5A4.25 4.25 0 0 0 3.5 7.75v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25Zm-4.25 3.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5Zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Zm5.8-.88a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z"/>
-                </svg>
-                Instagram
-              </a>
-              <a class="social-btn" href="https://wa.me/251707770379" aria-label="WhatsApp">
-                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 2a10 10 0 0 1 8.74 14.86L22 22l-5.33-1.2A10 10 0 1 1 12 2Zm0 1.5a8.5 8.5 0 0 0-7.26 12.95l.27.43-.8 3.15 3.24-.74.41.24A8.5 8.5 0 1 0 12 3.5Zm-3.8 4.42c.2-.44.42-.45.61-.45h.52c.18 0 .45-.07.69.49.24.56.8 1.93.87 2.06.07.13.11.29.02.47-.09.18-.13.29-.26.45-.13.16-.28.36-.4.48-.13.13-.26.28-.11.55.16.27.68 1.12 1.46 1.82 1 .9 1.84 1.18 2.1 1.31.27.13.42.11.58-.07.16-.18.66-.76.84-1.02.18-.27.36-.22.61-.13.26.09 1.62.76 1.9.9.27.13.45.2.51.31.07.11.07.67-.16 1.32-.22.65-1.3 1.24-1.78 1.31-.47.07-.99.1-3.2-.87-2.66-1.17-4.37-4.03-4.5-4.2-.13-.18-1.07-1.42-1.07-2.71 0-1.29.67-1.93.91-2.2Z"/>
-                </svg>
-                WhatsApp
-              </a>
-              <a class="social-btn" href="mailto:beytulahseid093@gmail.com" aria-label="Email">
-                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M3.5 5h17A1.5 1.5 0 0 1 22 6.5v11a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 17.5v-11A1.5 1.5 0 0 1 3.5 5Zm0 1.5v.33l8.5 6.24 8.5-6.24V6.5h-17Zm17 11v-8.8l-8.06 5.92a.75.75 0 0 1-.88 0L3.5 8.7v8.8h17Z"/>
-                </svg>
-                Email
-              </a>
-              <a href="https://www.linkedin.com/in/beytulah-seid-97ba6b400" class="social-btn" arial-label="LinkedIn">
-                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewbox=" 0 0 24 24" arial-hidden="true">
-                  <path d="M20.45 20.45h-3.554v-5.569c0-1.328-.027-3.037-1.85-3.037-1.851 0-2.135 1.445-2.135 2.94v5.666H9.356V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.369-1.85 3.6 0 4.266 2.37 4.266 5.455v6.284zM5.337 7.433c-1.144 0-2.068-.925-2.068-2.068 0-1.144.924-2.068 2.068-2.068 1.143 0 2.068.924 2.068 2.068 0 1.143-.925 2.068-2.068 2.068zM7.115 20.45H3.56V9h3.555v11.45z"/>
-               </svg>
-               LinkedIn
-             </a>
+              <a class="social-btn" href="https://wa.me/251707770379" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a>
+              <a class="social-btn" href="https://www.linkedin.com/in/beytulah-seid-97ba6b400" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+              <a class="social-btn" href="mailto:beytulahseid093@gmail.com" aria-label="Email">Email</a>
             </div>
           </div>
 
@@ -114,21 +204,28 @@
             <div class="image-placeholder" id="imagePlaceholder">Profile image loading...</div>
             <img id="profileImage" alt="Profile" loading="lazy" />
           </div>
+
         </div>
       </section>
-	  <div class="section-title">About Me</div>
-	  <div class="project-grid project-grid--single" style=" line-height: 1.6;" >
-            <article style=" line-height: 1.6; justify-content: center; padding: 0 40px 0 40px; margin: 35px 0 35px 0;">
-				<p>
-					I help individuals and small businesses create clean and modern websites that look professional and are easy to use.
-					I work with HTML, CSS, and JavaScript to build responsive and user-friendly web pages. I focus on simple design, good structure, and clear user experience.
-					I am currently building real projects to grow my experience and deliver better results for future clients.
-				</p>
-			</article>
-	  </div>
-      <section class="skills" id="about">
+
+      <section class="about" id="about">
+        <div class="container about__grid">
+          <div>
+            <h2 class="section-title section-title--left">About Me</h2>
+            <p class="about__text">
+              I help individuals and small businesses create clean and modern websites that look professional and are easy to use. I work with HTML, CSS, and JavaScript to build responsive and user-friendly web pages. I focus on simple design, good structure, and clear user experience. I am currently building real projects to grow my experience and deliver better results for future clients.
+            </p>
+            <a href="#projects" class="btn btn--neutral">View my work</a>
+          </div>
+          <div class="about__image-wrap">
+            <img src="preview.png" alt="3D cartoon style coding illustration" class="about__image" />
+          </div>
+        </div>
+      </section>
+
+      <section class="skills" id="skills">
         <div class="container">
-          <h2 class="section-title skills-title">Skills</h2>
+          <h2 class="section-title skills-title">My Skills</h2>
           <div class="skills-grid">
             <button class="skill-card">HTML</button>
             <button class="skill-card">CSS</button>
@@ -138,30 +235,10 @@
         </div>
       </section>
 
-      <section class="projects" id="projects" style=" line-height: 1.6;">
+      <section class="projects" id="projects">
         <div class="container">
-          <h2 class="section-title">Work</h2>
-          <div class="project-grid project-grid--single" style="display: inline-block;">
-            <article class="project-card project-card--feature" id="projectCard" role="button" tabindex="0" aria-label="Open portfolio project preview">
-              <img src="preview.png" alt="3D style portfolio website concept" class="project-card__image" />
-              <div class="project-card__body">
-                <h3>Portfolio Website</h3>
-                <button class="social-btn">HTML</button>  <button class="social-btn">CSS</button>  <button class="social-btn">JAVASCRIPT</button>
-                <br>
-                <p>A responsive portfolio showcasing my web design skills</p>
-              </div>
-            </article>
-		  </div><br><br>
-	      <div class="project-grid project-grid--single">
-            <article class="project-card project-card--feature" id="projectcard" role="button" tabindex="0" aria-label="Open portfolio project preview">
-              <img src="minber.jpeg" alt="3D style portfolio website concept" class="project-card__image" />
-              <div class="project-card__body">
-                <h3>Landing Page</h3>
-                <button class="social-btn">HTML</button>  <button class="social-btn">CSS</button>  <button class="social-btn">JAVASCRIPT</button>
-                <br>
-                <p>A modern website for a TV channel to improve its online presence.</p>
-              </div>
-            </article>
+          <h2 class="section-title">My Projects</h2>
+          <div class="project-grid project-grid--double" id="projectsList"></div>
         </div>
       </section>
 
@@ -169,54 +246,22 @@
         <div class="container">
           <h2 class="section-title">Contact</h2>
           <p>Get in touch with me.</p>
-
-            <div class="social-group" aria-label="social links" style="justify-content: center; align: center; align-items: center;">
-              <a class="social-btn" href="#" aria-label="Instagram">
-                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm8.5 1.5h-8.5A4.25 4.25 0 0 0 3.5 7.75v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25Zm-4.25 3.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5Zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Zm5.8-.88a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z"/>
-                </svg>
-                Instagram
-              </a>
-              <a class="social-btn" href="https://wa.me/251707770379" aria-label="WhatsApp">
-                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 2a10 10 0 0 1 8.74 14.86L22 22l-5.33-1.2A10 10 0 1 1 12 2Zm0 1.5a8.5 8.5 0 0 0-7.26 12.95l.27.43-.8 3.15 3.24-.74.41.24A8.5 8.5 0 1 0 12 3.5Zm-3.8 4.42c.2-.44.42-.45.61-.45h.52c.18 0 .45-.07.69.49.24.56.8 1.93.87 2.06.07.13.11.29.02.47-.09.18-.13.29-.26.45-.13.16-.28.36-.4.48-.13.13-.26.28-.11.55.16.27.68 1.12 1.46 1.82 1 .9 1.84 1.18 2.1 1.31.27.13.42.11.58-.07.16-.18.66-.76.84-1.02.18-.27.36-.22.61-.13.26.09 1.62.76 1.9.9.27.13.45.2.51.31.07.11.07.67-.16 1.32-.22.65-1.3 1.24-1.78 1.31-.47.07-.99.1-3.2-.87-2.66-1.17-4.37-4.03-4.5-4.2-.13-.18-1.07-1.42-1.07-2.71 0-1.29.67-1.93.91-2.2Z"/>
-                </svg>
-                WhatsApp
-              </a>
-              <a class="social-btn" href="mailto:beytulahseid093@gmail.com" aria-label="Email">
-                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M3.5 5h17A1.5 1.5 0 0 1 22 6.5v11a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 17.5v-11A1.5 1.5 0 0 1 3.5 5Zm0 1.5v.33l8.5 6.24 8.5-6.24V6.5h-17Zm17 11v-8.8l-8.06 5.92a.75.75 0 0 1-.88 0L3.5 8.7v8.8h17Z"/>
-                </svg>
-                Email
-              </a>
-              <a href="https://linkedin.com/in/beytulah-seid-97ba6b9400" class="social-btn" arial-label="LinkedIn">
-                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewbox=" 0 0 24 24" arial-hidden="true">
-                  <path d="M20.45 20.45h-3.554v-5.569c0-1.328-.027-3.037-1.85-3.037-1.851 0-2.135 1.445-2.135 2.94v5.666H9.356V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.369-1.85 3.6 0 4.266 2.37 4.266 5.455v6.284zM5.337 7.433c-1.144 0-2.068-.925-2.068-2.068 0-1.144.924-2.068 2.068-2.068 1.143 0 2.068.924 2.068 2.068 0 1.143-.925 2.068-2.068 2.068zM7.115 20.45H3.56V9h3.555v11.45z"/>
-               </svg>
-               LinkedIn
-             </a>
-            </div>
+		<div class="social-group" aria-label="footer social links" style=" justify-content: center;">
+          <a class="social-btn" href="https://wa.me/251707770379" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="social-btn" href="https://www.linkedin.com/in/beytulah-seid-97ba6b400" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="social-btn" href="mailto:beytulahseid093@gmail.com">Email</a>
+        </div>
         </div>
       </section>
     </main>
-
+	
     <div class="project-modal" id="projectModal" aria-hidden="true">
       <div class="project-modal__overlay" id="projectModalOverlay"></div>
       <div class="project-modal__content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <button class="project-modal__close" id="projectModalClose" aria-label="Close preview">×</button>
         <h3 id="modalTitle">Portfolio Website Preview</h3>
-        <img src="preview.png" alt="Preview of portfolio website" class="project-modal__image" />
-        <a href="portfolio.html" class="btn btn--primary project-modal__preview">View Live</a>
-      </div>
-    </div>
-
-	  <div class="project-modal" id="projectmodal" aria-hidden="true">
-      <div class="project-modal__overlay" id="projectmodaloverlay"></div>
-      <div class="project-modal__content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <button class="project-modal__close" id="projectmodalclose" aria-label="Close preview">×</button>
-        <h3 id="modaltitle">Portfolio Website Preview</h3>
-        <img src="minber.jpeg" alt="Preview of portfolio website" class="project-modal__image" />
-        <a href="minbertv.html" class="btn btn--primary project-modal__preview">View Live</a>
+        <img src="preview.png" alt="Preview of portfolio website" class="project-modal__image" id="projectModalImage" />
+        <a href="portfolio.html" class="btn btn--primary project-modal__preview" id="projectModalLink">Preview</a>
       </div>
     </div>
 
