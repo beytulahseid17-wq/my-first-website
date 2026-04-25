@@ -1,13 +1,15 @@
-	const hero = document.getElementById("hero");
+const hero = document.getElementById("hero");
 const menuToggle = document.getElementById("menuToggle");
 const mainNav = document.getElementById("mainNav");
 const themeToggle = document.getElementById("themeToggle");
+const welcomeWord = document.querySelector(".welcome-word");
 const welcomeText = document.querySelector(".welcome-text");
-const careerText = document.getElementById("careerText");
+const typingText = document.getElementById("typingText");
 const skillsTitle = document.querySelector(".skills-title");
 const skillCards = document.querySelectorAll(".skill-card");
 const profileImage = document.getElementById("profileImage");
 const imagePlaceholder = document.getElementById("imagePlaceholder");
+const aboutImageWrap = document.querySelector(".about__image-wrap");
 const interactiveButtons = document.querySelectorAll(".interactive-btn");
 const projectsSection = document.getElementById("projects");
 const projectsList = document.getElementById("projectsList");
@@ -21,16 +23,16 @@ const projectData = [
   {
     title: "Portfolio Website",
     description: "3D animation cartoon inspired portfolio concept used by modern companies.",
-    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1200&q=80",
-    previewImage: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80",
-    previewLink: "portfolio.html"
+    image: "preview.png",
+    previewImage: "preview.png",
+    previewLink: "preview.html"
   },
   {
     title: "Business Landing Page",
     description: "Conversion-focused landing page for a small business with clean sections and CTA flow.",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
-    previewImage: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=1200&q=80",
-    previewLink: "portfolio.html"
+    image: "minber.jpeg",
+    previewImage: "minber.jpeg",
+    previewLink: "minbertv.html"
   }
 ];
 
@@ -56,7 +58,7 @@ function renderProjects() {
 
   projectData.forEach((project) => {
     const card = document.createElement("article");
-    card.className = "project-card project-card--feature";
+    card.className = "project-card project-card--feature reveal";
     card.tabIndex = 0;
     card.setAttribute("role", "button");
     card.setAttribute("aria-label", `Open ${project.title} preview`);
@@ -130,14 +132,42 @@ window.addEventListener("DOMContentLoaded", () => {
   initializeTheme();
   renderProjects();
 
+  let typingIndex = 0;
+  let deleting = false;
+  const typingWords = ["Developer", "Designer."];
+  let activeWord = 0;
+
+  const typeEffect = () => {
+    const word = typingWords[activeWord];
+    if (!deleting) {
+      typingText.textContent = word.slice(0, typingIndex + 1);
+      typingIndex += 1;
+      if (typingIndex === word.length) {
+        deleting = true;
+        setTimeout(typeEffect, 900);
+        return;
+      }
+    } else {
+      typingText.textContent = word.slice(0, typingIndex - 1);
+      typingIndex -= 1;
+      if (typingIndex === 0) {
+        deleting = false;
+        activeWord = (activeWord + 1) % typingWords.length;
+      }
+    }
+
+    setTimeout(typeEffect, deleting ? 55 : 95);
+  };
+
   requestAnimationFrame(() => {
+    welcomeWord.classList.add("show");
     welcomeText.classList.add("show");
+    typeEffect();
   });
 
   setTimeout(() => {
     profileImage.src = "pro.png";
     profileImage.classList.add("show");
-    careerText.classList.add("show");
     imagePlaceholder.style.opacity = "0";
     imagePlaceholder.style.pointerEvents = "none";
   }, 650);
@@ -159,6 +189,26 @@ window.addEventListener("DOMContentLoaded", () => {
   );
 
   skillsObserver.observe(document.querySelector(".skills"));
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("show");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  if (aboutImageWrap) {
+    revealObserver.observe(aboutImageWrap);
+  }
+
+  document.querySelectorAll(".project-card.reveal").forEach((card, index) => {
+    card.style.transitionDelay = `${index * 120}ms`;
+    revealObserver.observe(card);
+  });
 });
 
 interactiveButtons.forEach((button) => {
