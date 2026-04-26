@@ -118,9 +118,33 @@ main { margin-top: 90px; }
 
 .skills { padding: 2.5rem 0; background: var(--skills-bg); }
 .skills-title { color: #fff; transform: translateX(30px) scale(0.95); opacity: 0; transition: transform 0.75s ease, opacity 0.75s ease; }
-.skills-title.show, .skill-card.show { opacity: 1; transform: translateX(0) scale(1); }
-.skills-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
-.skill-card { border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #f2f5ff; transform: translateX(44px) scale(0.95); opacity: 0; }
+.skills-title.show, .skill-card.show, .skill-desc.show, .skill-dot.show { opacity: 1; transform: translateX(0) scale(1); }
+.skills-timeline { position: relative; display: grid; gap: 1.1rem; }
+.skills-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: #3676ff; transform: translateX(-50%); border-radius: 999px; }
+.skill-row { display: grid; grid-template-columns: 1fr 52px 1fr; align-items: center; gap: 1rem; }
+.skill-col--left { text-align: right; }
+.skill-col--right { text-align: left; }
+.skill-card {
+  border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #f2f5ff;
+  transform: translateX(44px) scale(0.95); opacity: 0;
+}
+.skill-desc {
+  color: #dce5ff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  padding: 0.8rem;
+  margin: 0;
+  opacity: 0;
+  transform: translateX(-34px);
+  transition: transform 0.7s ease, opacity 0.7s ease;
+}
+.skill-dot {
+  width: 38px; height: 38px; border-radius: 50%; background: #3676ff; color: #fff;
+  display: grid; place-content: center; font-size: 1rem; margin: 0 auto;
+  opacity: 0; transform: scale(0.8);
+  transition: transform 0.7s ease, opacity 0.7s ease;
+}
 
 .projects, .contact { padding: 2.5rem 0; }
 .project-grid--double { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; }
@@ -198,14 +222,16 @@ body.modal-open #mainContent, body.modal-open .hero, body.modal-open .site-foote
   .form-grid { grid-template-columns: 1fr; }
   .footer-columns { grid-template-columns: 1fr; }
   .footer-col--center, .footer-col--right { justify-items: start; text-align: left; }
-  .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skill-row { grid-template-columns: 1fr; }
+  .skills-line { left: 16px; transform: none; }
+  .skill-dot { margin-left: 0; }
+  .skill-col--left, .skill-col--right { text-align: left; }
   .section-title--left { text-align: center; }
 }
 
 @media (max-width: 640px) {
   .brand { font-size: 1.55rem; }
   .btn, .social-btn { width: 100%; text-align: center; }
-  .skills-grid { grid-template-columns: 1fr; }
   .intro__image-card { min-height: 280px; }
   .project-modal__content { width: min(92vw, 920px); }
   .typing-word { min-width: 0; }
