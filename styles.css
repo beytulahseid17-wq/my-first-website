@@ -41,8 +41,7 @@ html, body {
   box-shadow: 0 4px 14px rgba(18, 29, 62, 0.08);
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
-.brand { text-decoration: none; color: var(--text); font-size: 2rem; font-weight: 800; display: inline-flex; align-items: center; gap: 0.5rem; }
-.brand-logo { width: 38px; height: 38px; color: #3676ff; flex: 0 0 auto; }
+.brand { text-decoration: none; color: var(--text); font-size: clamp(1.35rem, 3.8vw, 2rem); font-weight: 800; display: inline-flex; align-items: center; gap: 0.5rem; }
 .hero__right { display: flex; align-items: center; gap: 1rem; }
 .hero__controls { display: flex; align-items: center; gap: 0.6rem; }
 .theme-toggle { border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); color: var(--text); width: 42px; height: 42px; font-size: 1rem; cursor: pointer; }
@@ -91,15 +90,6 @@ main { margin-top: 90px; }
   border: 1px solid transparent; border-radius: 999px; padding: 0.72rem 1.15rem; font-weight: 600; text-decoration: none;
   cursor: pointer; transition: background-color 0.35s ease, color 0.35s ease, transform 0.3s ease;
 }
-
-.hrr {
-	border: 1px solid transparent; border-radius: 999px; padding: 0.72rem 1.15rem; font-weight: 600; text-decoration: none; background: var(--surface-2); color: var(--text); border-color: var(--line); 
-  cursor: pointer; transition: background-color 0.35s ease, color 0.35s ease, transform 0.3s ease; display: inline; padding: 0 90px 0 90px; margin: 0 20px 0 20px;
-}
-.hrr:hover {
-	 transform: translateY(-2px); 
-}
-
 .btn:hover, .social-btn:hover, .skill-card:hover, .project-card--feature:hover { transform: translateY(-2px); }
 .btn--primary { background: var(--primary); color: #fff; }
 .btn--primary:active, .btn--primary.is-clicked { background: var(--primary-dark); }
@@ -174,26 +164,15 @@ main { margin-top: 90px; }
 .form-submit { min-width: 150px; }
 
 .site-footer { padding: 2rem 0 2.6rem; background: var(--surface); border-top: 1px solid var(--line); }
-.site-footer__inner { display: grid; justify-items: center; gap: 1rem; }
-.site-footer .social-group { justify-content: center; }
-
-.toast {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  padding: 0.8rem 1rem;
-  border-radius: 10px;
-  color: #fff;
-  font-weight: 600;
-  opacity: 0;
-  transform: translateY(18px);
-  pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  z-index: 2100;
-}
-.toast.show { opacity: 1; transform: translateY(0); }
-.toast.success { background: #1e9e57; }
-.toast.error { background: #d43f3f; }
+.site-footer__inner { display: grid; gap: 1.2rem; }
+.footer-columns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; align-items: start; }
+.footer-col { display: grid; gap: 0.45rem; }
+.footer-col--center { justify-items: center; text-align: center; }
+.footer-col--right { justify-items: end; text-align: right; }
+.footer-col h4 { margin: 0 0 0.2rem; }
+.footer-col a { color: var(--muted); text-decoration: none; }
+.social-group--stack { flex-direction: column; align-items: flex-start; }
+.footer-note { margin: 0; text-align: center; color: var(--muted); font-size: 0.95rem; }
 
 @keyframes blink-caret {
   0%, 49% { opacity: 1; }
@@ -217,6 +196,8 @@ body.modal-open #mainContent, body.modal-open .hero, body.modal-open .site-foote
   .nav.open { display: flex; }
   .intro__grid, .about__grid, .project-grid--double { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
+  .footer-columns { grid-template-columns: 1fr; }
+  .footer-col--center, .footer-col--right { justify-items: start; text-align: left; }
   .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .section-title--left { text-align: center; }
 }
@@ -227,4 +208,13 @@ body.modal-open #mainContent, body.modal-open .hero, body.modal-open .site-foote
   .skills-grid { grid-template-columns: 1fr; }
   .intro__image-card { min-height: 280px; }
   .project-modal__content { width: min(92vw, 920px); }
+  .typing-word { min-width: 0; }
+  .hero__tab { padding: 0.7rem 0.8rem; }
+}
+
+@media (max-width: 420px) {
+  .welcome-word { font-size: 1.9rem; }
+  .welcome-text { font-size: 1rem; }
+  .theme-toggle { width: 38px; height: 38px; }
+  .menu-toggle span { width: 22px; }
 }
