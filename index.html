@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BEYTULAH</title>
+    <title>Beytulah</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,7 +15,7 @@
   <body>
     <header class="hero" id="hero">
       <div class="hero__tab">
-        <a class="brand" href="#">MySite</a>
+        <a class="brand" href="#">Beytulah</a>
         <div class="hero__right">
           <nav class="nav" id="mainNav">
             <a href="#home">Home</a>
@@ -45,6 +45,11 @@
             <div class="cta-group">
               <a class="btn btn--primary interactive-btn" href="#projects">View my work</a>
             </div>
+            <div class="social-group" aria-label="header social links">
+              <a class="social-btn" href="https://wa.me/251707770379" target="_blank" rel="noopener">WhatsApp</a>
+              <a class="social-btn" href="https://www.linkedin.com/in/beytulah-seid-97ba6b400" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="social-btn" href="mailto:beytulahseid093@gmail.com">Email</a>
+            </div>
           </div>
 
           <div class="intro__image-card" id="profileCard">
@@ -57,7 +62,7 @@
       <section class="about" id="about">
         <div class="container about__grid">
           <div class="about__image-wrap">
-            <img src="illustration.jpg" alt="Minimal coding illustration style workspace" class="about__image" id="aboutImage" />
+            <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?auto=format&fit=crop&w=1200&q=80" alt="Minimal coding illustration style workspace" class="about__image" id="aboutImage" />
           </div>
           <div>
             <h2 class="section-title section-title--left">About Me</h2>
@@ -72,26 +77,47 @@
       <section class="skills" id="skills">
         <div class="container">
           <h2 class="section-title skills-title">I Work Using</h2>
-          <div class="skills-grid">
-            <button class="skill-card">HTML</button>
-            <button class="skill-card">CSS</button>
-            <button class="skill-card">JavaScript</button>
-            <button class="skill-card">Responsive Design</button>
+          <div class="skills-timeline">
+            <div class="skills-line"></div>
+
+            <article class="skill-row">
+              <div class="skill-col skill-col--left"><button class="skill-card skill-reveal">HTML</button></div>
+              <div class="skill-dot skill-reveal">➜</div>
+              <div class="skill-col skill-col--right"><p class="skill-desc skill-reveal">I use HTML to build the structure of your website so your content is clear, organized, and easy to understand for visitors and search engines.</p></div>
+            </article>
+
+            <article class="skill-row">
+              <div class="skill-col skill-col--left"><p class="skill-desc skill-reveal">I use CSS to design your website with modern layouts, colors, and spacing that make your site look professional and attractive.</p></div>
+              <div class="skill-dot skill-reveal">➜</div>
+              <div class="skill-col skill-col--right"><button class="skill-card skill-reveal">CSS</button></div>
+            </article>
+
+            <article class="skill-row">
+              <div class="skill-col skill-col--left"><button class="skill-card skill-reveal">JavaScript</button></div>
+              <div class="skill-dot skill-reveal">➜</div>
+              <div class="skill-col skill-col--right"><p class="skill-desc skill-reveal">I use JavaScript to add interactive features that make your website more engaging, such as buttons, animations, and dynamic content.</p></div>
+            </article>
+
+            <article class="skill-row">
+              <div class="skill-col skill-col--left"><p class="skill-desc skill-reveal">I make websites responsive so they work perfectly on phones, tablets, and desktops.</p></div>
+              <div class="skill-dot skill-reveal">➜</div>
+              <div class="skill-col skill-col--right"><button class="skill-card skill-reveal">Responsive Design</button></div>
+            </article>
           </div>
         </div>
       </section>
 
       <section class="projects" id="projects">
         <div class="container">
-          <h2 class="section-title">Some Of My Projects</h2>
+          <h2 class="section-title">Some Of My Works</h2>
           <div class="project-grid project-grid--double" id="projectsList"></div>
         </div>
       </section>
 
       <section class="contact-form" id="contactForm">
         <div class="container">
-          <h2 class="section-title">Let's Turn Your Idea Into Real World Presence!</h2>
-          <form action="https://formspree.io/f/xjgjzqgn" method="POST">
+          <h2 class="section-title">Let's Turn Your Ideas Into Real World Presence</h2>
+          <form class="message-form" id="messageForm" enctype="multipart/form-data">
             <div class="form-grid">
               <label class="form-field">
                 <span>Name</span>
@@ -107,6 +133,7 @@
               <span>Description</span>
               <textarea name="description" rows="5" placeholder="Write your message..." required></textarea>
             </label>
+
             <button type="submit" class="btn btn--primary form-submit" id="formSubmitBtn">Submit</button>
           </form>
         </div>
