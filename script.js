@@ -18,9 +18,6 @@ const projectModalClose = document.getElementById("projectModalClose");
 const projectModalOverlay = document.getElementById("projectModalOverlay");
 const projectModalImage = document.getElementById("projectModalImage");
 const projectModalLink = document.getElementById("projectModalLink");
-const messageForm = document.getElementById("messageForm");
-const formSubmitBtn = document.getElementById("formSubmitBtn");
-const toastNotification = document.getElementById("toastNotification");
 
 const projectData = [
   {
@@ -94,14 +91,6 @@ function closeProjectModal() {
   document.body.classList.remove("modal-open");
 }
 
-function showToast(message, type = "success") {
-  toastNotification.textContent = message;
-  toastNotification.className = `toast ${type} show`;
-  setTimeout(() => {
-    toastNotification.classList.remove("show");
-  }, 2600);
-}
-
 window.addEventListener("scroll", () => {
   hero.classList.toggle("scrolled", window.scrollY > 10);
 });
@@ -132,36 +121,6 @@ projectsSection.addEventListener("keydown", (event) => {
 
 projectModalClose.addEventListener("click", closeProjectModal);
 projectModalOverlay.addEventListener("click", closeProjectModal);
-
-messageForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  formSubmitBtn.disabled = true;
-  formSubmitBtn.textContent = "Submitting...";
-
-  const formData = new FormData(messageForm);
-  formData.append("_subject", "New portfolio contact message");
-  formData.append("_captcha", "false");
-
-  try {
-    const response = await fetch("https://formsubmit.co/ajax/beytulahseid093@gmail.com", {
-      method: "POST",
-      body: formData
-    });
-    const result = await response.json();
-
-    if (response.ok && result.success === "true") {
-      messageForm.reset();
-      showToast("Successfully submitted.", "success");
-    } else {
-      showToast("Please try again. Unable to submit.", "error");
-    }
-  } catch (error) {
-    showToast("Please try again. Network error.", "error");
-  } finally {
-    formSubmitBtn.disabled = false;
-    formSubmitBtn.textContent = "Submit";
-  }
-});
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && projectModal.classList.contains("open")) {
