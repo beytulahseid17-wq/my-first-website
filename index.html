@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beytulah</title>
+    <title>BEYTULAH</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,9 +15,7 @@
   <body>
     <header class="hero" id="hero">
       <div class="hero__tab">
-        <a class="brand" href="#home">
-          Beytulah
-        </a>
+        <a class="brand" href="#">MySite</a>
         <div class="hero__right">
           <nav class="nav" id="mainNav">
             <a href="#home">Home</a>
@@ -36,7 +34,7 @@
     </header>
 
     <main id="mainContent">
-       <section class="intro" id="home">
+      <section class="intro" id="home">
         <div class="container intro__grid">
           <div class="intro__content">
             <h1 class="welcome-word">Front-End <span class="typing-word" id="typingText">Developer</span></h1>
@@ -56,22 +54,6 @@
         </div>
       </section>
 
-      <section class="about" id="about">
-        <div class="container about__grid">
-		          <div class="about__image-wrap">
-            <img src="illustration.jpg" alt="Minimal coding illustration style workspace" class="about__image" id="aboutImage"  />
-          </div>
-          <div>
-            <h2 class="section-title section-title--left">About Me</h2>
-            <p class="about__text">
-              I help individuals and small businesses create clean and modern websites that look professional and are easy to use. I work with HTML, CSS, and JavaScript to build responsive and user-friendly web pages. I focus on simple design, good structure, and clear user experience. I am currently building real projects to grow my experience and deliver better results for future clients.
-            </p>
-            <a href="#projects" class="btn btn--neutral">View my work</a>
-          </div>
-
-        </div>
-      </section>
-		
       <section class="about" id="about">
         <div class="container about__grid">
           <div class="about__image-wrap">
@@ -101,35 +83,71 @@
 
       <section class="projects" id="projects">
         <div class="container">
-          <h2 class="section-title">Some Of My Projects</h2>
+          <h2 class="section-title">My Projects</h2>
           <div class="project-grid project-grid--double" id="projectsList"></div>
         </div>
       </section>
-		
+
+      <section class="contact-form" id="contactForm">
+        <div class="container">
+          <h2 class="section-title">Send a Message</h2>
+          <form class="message-form" id="messageForm" enctype="multipart/form-data">
+            <div class="form-grid">
+              <label class="form-field">
+                <span>Name</span>
+                <input type="text" name="name" placeholder="Your name" required />
+              </label>
+              <label class="form-field">
+                <span>Email</span>
+                <input type="email" name="email" placeholder="Your email" required />
+              </label>
+            </div>
+
+            <label class="form-field">
+              <span>Description</span>
+              <textarea name="description" rows="5" placeholder="Write your message..." required></textarea>
+            </label>
+
+            <button type="submit" class="btn btn--primary form-submit" id="formSubmitBtn">Submit</button>
+          </form>
+        </div>
+      </section>
+
       <section class="contact" id="contact">
-        <div class="container" >
-          <h2 class="section-title">Get in touch with me.</h2>
-		<div class="social-group" aria-label="footer social links" style=" justify-content: space-between; ">
-		<ul type="none">
-		<h3>Social links</h3>
-		  <li><button class="hrr" style="height: 50px;" href="https://wa.me/251707770379" target="_blank" rel="noopener"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 1 8.74 14.86L22 22l-5.33-1.2A10 10 0 1 1 12 2Zm0 1.5a8.5 8.5 0 0 0-7.26 12.95l.27.43-.8 3.15 3.24-.74.41.24A8.5 8.5 0 1 0 12 3.5Z"/></svg>WhatsApp</a></li>
-		  <br>
-		  <li><button class="hrr" style="height: 50px;" href="https://www.linkedin.com/in/beytulah-seid-97ba6b400" target="_blank" rel="noopener"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.84v1.64h.05c.53-1.01 1.84-2.08 3.79-2.08C21 8.56 22 10.58 22 13.22V21h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V21h-4V9Z"/></svg>LinkedIn</a></li>
-		  <br>
-		  <li><button class="hrr" style="height: 50px;" href="mailto:beytulahseid093@gmail.com"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5h17A1.5 1.5 0 0 1 22 6.5v11a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 17.5v-11A1.5 1.5 0 0 1 3.5 5Zm17 2.02-8.1 5.95a.75.75 0 0 1-.9 0L3.5 7.02V17.5h17V7.02Z"/></svg>Email</a>	</li>
-		</ul>	
-			<ul type="..." style="margin: 0 350px 0 0;">
-		       <h3>Pages</h3>
-		        <li><a style="color: white; text-decoration: none;" href="file:///C:/Users/UserZ/Desktop/website/my%20first%20website.html#home">Home</button></li>
-				<br><li><a style="color: white; text-decoration: none;" href="file:///C:/Users/UserZ/Desktop/website/my%20first%20website.html#about">About</button></li>
-			    <br><li><a style="color: white; text-decoration: none;" href="file:///C:/Users/UserZ/Desktop/website/my%20first%20website.html#projects">Projects</button></li>
-			    <br><li><a style="color: white; text-decoration: none;" href="file:///C:/Users/UserZ/Desktop/website/my%20first%20website.html#contact">Contact</button></li>
-			  </ul>
-		</div><br><br>
-		<p style="text-decoration: none; color: gray; justify-content: center;padding: 10px 0 0 40px;">2026, Developed by Beytulah Seid.</p>
+        <div class="container">
+          <h2 class="section-title">Contact</h2>
+          <p>Get in touch with me.</p>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div class="footer-columns">
+          <div class="footer-col footer-col--left">
+            <h4>Contact</h4>
+            <div class="social-group social-group--stack" aria-label="footer social links">
+              <a class="social-btn" href="https://wa.me/251707770379" target="_blank" rel="noopener"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 1 8.74 14.86L22 22l-5.33-1.2A10 10 0 1 1 12 2Zm0 1.5a8.5 8.5 0 0 0-7.26 12.95l.27.43-.8 3.15 3.24-.74.41.24A8.5 8.5 0 1 0 12 3.5Z"/></svg>WhatsApp</a>
+              <a class="social-btn" href="https://www.linkedin.com/in/beytulah-seid-97ba6b400" target="_blank" rel="noopener"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.84v1.64h.05c.53-1.01 1.84-2.08 3.79-2.08C21 8.56 22 10.58 22 13.22V21h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V21h-4V9Z"/></svg>LinkedIn</a>
+              <a class="social-btn" href="mailto:beytulahseid093@gmail.com"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5h17A1.5 1.5 0 0 1 22 6.5v11a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 17.5v-11A1.5 1.5 0 0 1 3.5 5Zm17 2.02-8.1 5.95a.75.75 0 0 1-.9 0L3.5 7.02V17.5h17V7.02Z"/></svg>Email</a>
+            </div>
+          </div>
+          <div class="footer-col footer-col--center">
+            <h4>Pages</h4>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <div class="footer-col footer-col--right">
+            <h4>Legal</h4>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms &amp; Conditions</a>
+          </div>
+        </div>
+        <p class="footer-note">Developed by Beytulah Seid</p>
+      </div>
+    </footer>
 
     <div class="project-modal" id="projectModal" aria-hidden="true">
       <div class="project-modal__overlay" id="projectModalOverlay"></div>
@@ -142,6 +160,5 @@
     </div>
 
     <script src="script.js"></script>
-    <div class="toast" id="toastNotification" role="status" aria-live="polite"></div>
   </body>
 </html>
