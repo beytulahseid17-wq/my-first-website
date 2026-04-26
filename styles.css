@@ -169,3 +169,11 @@ body.modal-open #mainContent, body.modal-open .hero, body.modal-open .site-foote
   .intro__image-card { min-height: 280px; }
   .project-modal__content { width: min(92vw, 920px); }
 }
+
+.hrr {
+	border: 1px solid transparent; border-radius: 999px; padding: 0.72rem 1.15rem; font-weight: 600; text-decoration: none; background: var(--surface-2); color: var(--text); border-color: var(--line); 
+  cursor: pointer; transition: background-color 0.35s ease, color 0.35s ease, transform 0.3s ease; display: inline; padding: 0 90px 0 90px; margin: 0 20px 0 20px;
+}
+.hrr:hover {
+	 transform: translateY(-2px); 
+}
