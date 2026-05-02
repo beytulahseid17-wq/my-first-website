@@ -1,342 +1,592 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Minber TV | Connect Everywhere</title>
-    <meta
-      name="description"
-      content="Minber TV official social hub. Watch, follow, and join Minber TV on YouTube, Telegram, Facebook, Instagram, TikTok, and Twitter."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ሚንበር ቲቪ | Minber TV - ሁለንተናዊ ከፍታ!</title>
     
-	<style>
-	:root {
-  --bg: #dff3ff;
-  --surface: rgba(255, 255, 255, 0.74);
-  --text: #16314f;
-  --muted: #4d6a8b;
-  --line: rgba(22, 49, 79, 0.14);
-  --primary: #4da6ff;
-  --primary-2: #6ec5ff;
-  --glow: rgba(77, 166, 255, 0.35);
-}
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body {
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  color: var(--text);
-  background: radial-gradient(circle at 10% 20%, #b8e5ff 0%, var(--bg) 45%), var(--bg);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-.bg-orb,.bg-grid { pointer-events: none; }
-.bg-orb { position: fixed; border-radius: 50%; filter: blur(36px); z-index: -2; animation: float 16s ease-in-out infinite; }
-.orb-1 { width: 320px; height: 320px; background: rgba(86, 177, 255, 0.28); top: -90px; right: -70px; }
-.orb-2 { width: 260px; height: 260px; background: rgba(156, 223, 255, 0.45); bottom: -80px; left: -60px; animation-delay: -7s; }
-.bg-grid { position: fixed; inset: 0; z-index: -3; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 38px 38px; mask-image: radial-gradient(circle at center, black 45%, transparent 90%); opacity: 0.35; }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-.topbar, .container { width: min(1140px, calc(100% - 2rem)); margin-inline: auto; }
+    <style>
+        /* ==========================================================================
+           CSS VARIABLES (Luxury Light Blue Theme)
+           ========================================================================== */
+        :root {
+            --primary-light: #e0f7fa;   /* Base Light Blue */
+            --primary: #0077b6;         /* Brand Blue */
+            --primary-dark: #023e8a;    /* Deep Blue for contrast/luxury */
+            --accent: #d4af37;          /* Gold accent for luxury feel */
+            --bg-color: #f8fdff;        /* Very light background */
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-lg: 0 15px 30px rgba(0,119,182,0.1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-.topbar {
-  margin-top: 1rem;
-  padding: 0.95rem 1.1rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(10px);
-}
-.brand { color: var(--text); text-decoration: none; font-weight: 800; display: inline-flex; align-items: center; gap: 0.55rem; }
-.brand-dot { width: 11px; height: 11px; border-radius: 999px; background: linear-gradient(140deg, var(--primary), var(--primary-2)); box-shadow: 0 0 24px var(--glow); }
+        /* ==========================================================================
+           GLOBAL STYLES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.main-nav { display: flex; gap: 1rem; margin-left: auto; }
-.main-nav a,.footer-links a { text-decoration: none; color: var(--text); font-weight: 600; }
-.main-nav a { transition: transform 0.2s ease, color 0.2s ease; }
-.main-nav a:hover, .main-nav a.is-active { transform: translateY(3px); color: #0f4f8e; }
-.nav-socials { display: flex; gap: 0.5rem; }
-.social-icon {
-  width: 34px; height: 34px; display: grid; place-items: center;
-  border: 1px solid var(--line); border-radius: 8px; background: #ffffff;
-}
-.social-icon svg, .icon svg { width: 18px; height: 18px; fill: currentColor; }
-.youtube { color: #d35656; }
-.telegram { color: #4da6ff; }
-.twitter { color: #2f4966; }
+        body {
+            font-family: 'Noto Sans Ethiopic', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-.menu-btn {
-  display: none;
-  border: 1px solid var(--line);
-  background: #fff;
-  border-radius: 8px;
-  padding: 0.45rem 0.7rem;
-  font-weight: 700;
-}
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
 
-.container { padding: 3.2rem 0; }
-.section-panel { padding: 1.7rem; border-radius: 18px; border: 1px solid var(--line); }
-.section-hero { background: rgba(255,255,255,0.48); }
-.section-links { margin-top: 2.6rem; background: rgba(210,238,255,0.48); }
-.section-videos { margin-top: 2.6rem; background: rgba(234,247,255,0.62); }
+        ul {
+            list-style: none;
+        }
 
-.hero { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
-.hero-content { flex: 1.1; }
-.hero-media { flex: 0.9; }
-.hero-media img { width: 100%; max-height: 380px; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 18px 40px rgba(10, 42, 76, 0.18); }
+        /* ==========================================================================
+           TOP BAR & TRANSLATOR
+           ========================================================================== */
+        .top-bar {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
 
-.eyebrow { color: var(--primary); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem; margin: 0; }
-.hero h1 { margin: 0.6rem 0 1rem; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.12; }
-.lead { color: var(--muted); margin: 0; line-height: 1.7; max-width: 64ch; }
-.hero-actions { margin-top: 1.6rem; display: flex; gap: 0.8rem; flex-wrap: wrap; }
-.btn {
-  text-decoration: none; color: var(--text); font-weight: 700; display: inline-flex; align-items: center; justify-content: center;
-  min-height: 46px; padding: 0.8rem 1.05rem; border-radius: 12px; border: 1px solid transparent;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-.btn:hover { transform: translateY(-2px); }
-.btn-youtube { background: #d97a7a; color: #fff; }
-.btn-telegram { background: #88c9ff; color: #123a5f; }
+        .top-bar .social-icons a {
+            color: var(--white);
+            margin-left: 15px;
+            font-size: 1rem;
+        }
 
-.links-section h2,.videos h2 { margin: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
-.section-subtitle { margin-top: 0.5rem; color: var(--muted); }
-.cards { margin-top: 1.35rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
-.social-card {
-  border: 1px solid var(--line); border-radius: 16px; padding: 1rem; display: flex; gap: 0.85rem; align-items: flex-start;
-  background: var(--surface); color: var(--text); text-decoration: none;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-  transform-style: preserve-3d;
-}
-.social-card:hover { transform: translateY(-5px); border-color: rgba(77, 166, 255, 0.65); box-shadow: 0 14px 35px rgba(10, 42, 76, 0.2); }
-.icon { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--line); display: grid; place-items: center; background: rgba(255, 255, 255, 0.45); }
-.social-card h3 { margin: 0; font-size: 1rem; }
-.social-card p { margin: 0.35rem 0 0; color: var(--muted); line-height: 1.5; }
+        .top-bar .social-icons a:hover {
+            color: var(--accent);
+        }
 
-.video-grid { margin-top: 1.2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-.video-card {
-  min-height: 170px; border-radius: 14px; border: 1px solid var(--line); background: linear-gradient(130deg, #eaf7ff, #caeaff);
-  text-decoration: none; color: #0d3d68; display: flex; align-items: end; padding: 0.9rem; overflow: hidden;
-}
-.video-text { transition: transform 0.35s ease; font-weight: 700; }
-.video-card:hover .video-text { transform: translateY(0); }
+        /* Google Translate customization */
+        #google_translate_element select {
+            background: var(--white);
+            color: var(--text-dark);
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+        }
 
-.footer {
-  width: 100%;
-  margin-top: 3.2rem;
-  padding: 2rem 0 2.4rem;
-  background: rgba(230, 246, 255, 0.9);
-  border-top: 1px solid var(--line);
-}
-.footer-inner { width: min(1140px, calc(100% - 2rem)); margin-inline: auto; text-align: center; }
-.footer-about { max-width: 70ch; margin: 0.5rem auto 1rem; color: var(--muted); }
-.footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.9rem; margin-bottom: 1rem; }
-.footer-links a:hover { color: #0f4f8e; }
+        /* ==========================================================================
+           HEADER & NAVIGATION
+           ========================================================================== */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.fade-up { opacity: 0; transform: translateY(18px); animation: fadeUp 0.7s ease forwards; }
-.hero.fade-up { animation-delay: 0.05s; }
-.links-section.fade-up { animation-delay: 0.18s; }
-.videos.fade-up { animation-delay: 0.24s; }
-.footer.fade-up { animation-delay: 0.35s; }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-@keyframes float { 0%,100% { transform: translate(0, 0); } 50% { transform: translate(15px, -18px); } }
-@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
 
-@media (max-width: 980px) {
-  .hero { flex-direction: column; }
-  .hero-media { width: 100%; }
-}
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
 
-@media (max-width: 860px) {
-  .menu-btn { display: inline-flex; margin-left: auto; }
-  .main-nav {
-    display: none;
-    order: 5;
-    width: 100%;
-    margin-left: 0;
-    flex-direction: column;
-    gap: 0;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    overflow: hidden;
-    background: #fff;
-  }
-  .main-nav.open { display: flex; }
-  .main-nav a { padding: 0.75rem 0.8rem; border-top: 1px solid var(--line); }
-  .main-nav a:first-child { border-top: 0; }
-  .nav-socials { margin-left: 0.4rem; }
-}
+        nav ul {
+            display: flex;
+            gap: 30px;
+        }
 
-@media (max-width: 640px) {
-  .container { padding-top: 2.2rem; }
-  .hero-actions .btn { width: 100%; }
-  .cards, .video-grid { grid-template-columns: 1fr; }
-  .section-panel { padding: 1.1rem; }
-}
+        nav a {
+            font-weight: 600;
+            color: var(--primary-dark);
+            position: relative;
+        }
 
-	</style>
-  </head>
-  <body>
-    <div class="bg-orb orb-1" aria-hidden="true"></div>
-    <div class="bg-orb orb-2" aria-hidden="true"></div>
-    <div class="bg-grid" aria-hidden="true"></div>
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
 
-    <header class="topbar fade-up" id="home">
-      <a class="brand" href="#home" aria-label="Minber TV Home">
-        <span class="brand-dot"></span>
-        <span>Minber TV</span>
-      </a>
+        nav a:hover::after {
+            width: 100%;
+        }
 
-      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            cursor: pointer;
+        }
 
-      <nav class="main-nav" aria-label="Main Navigation" id="mobileMenu">
-        <a href="#home">Home</a>
-        <a href="#programs">Programs</a>
-        <a href="#footerMain">About</a>
-        <a href="#footerMain">Contact</a>
-      </nav>
+        /* ==========================================================================
+           HERO SECTION
+           ========================================================================== */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg-color) 100%);
+            position: relative;
+            overflow: hidden;
+        }
 
-      <div class="nav-socials" aria-label="Social links">
-        <a href="https://www.youtube.com/@minbertv1" target="_blank" rel="noreferrer noopener" aria-label="YouTube" class="social-icon youtube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.5-.4-5.2c-.2-1-1-1.7-2-2C18.9 4.4 12 4.4 12 4.4s-6.9 0-8.6.4c-1 .3-1.8 1-2 2C1 8.5 1 12 1 12s0 3.5.4 5.2c.2 1 1 1.7 2 2 1.7.4 8.6.4 8.6.4s6.9 0 8.6-.4c1-.3 1.8-1 2-2 .4-1.7.4-5.2.4-5.2ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg></a>
-        <a href="https://t.me/minbertv" target="_blank" rel="noreferrer noopener" aria-label="Telegram" class="social-icon telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.9 4.3 18.6 19c-.2 1-1 1.2-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.3-.1-.5-.6-.2L6.1 12.8l-4.9-1.5c-1-.3-1-1 .2-1.5L20.5 3c.9-.3 1.7.2 1.4 1.3Z"/></svg></a>
-        <a href="https://twitter.com/minbertv" target="_blank" rel="noreferrer noopener" aria-label="Twitter" class="social-icon twitter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.7 7.7L23 22h-6l-4.7-6.1L7 22H3.9l7.2-8.2L1 2h6.2l4.3 5.6L18.9 2Zm-1.1 18h1.7L6.4 3.9H4.6L17.8 20Z"/></svg></a>
-      </div>
+        /* Decorative circles for luxury animation feel */
+        .hero::before, .hero::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 119, 182, 0.05);
+            z-index: 0;
+        }
+        .hero::before { width: 500px; height: 500px; top: -100px; right: -100px; }
+        .hero::after { width: 300px; height: 300px; bottom: -50px; left: 10%; }
+
+        .hero-content {
+            flex: 1;
+            z-index: 1;
+            max-width: 600px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        .hero-image {
+            flex: 1;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            width: 50%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ==========================================================================
+           YOUTUBE VIDEOS SECTION
+           ========================================================================== */
+        .videos-section {
+            padding: 80px 5%;
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .video-card {
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            background: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 90%;
+            height: 90%;
+            border: none;
+        }
+
+        /* Full Album / Playlist Embed */
+        .playlist-container {
+            max-width: 516px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 5% 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo .logo-text {
+            color: var(--white);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer-desc {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .footer-socials a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .footer-socials a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           ANIMATIONS & RESPONSIVE DESIGN
+           ========================================================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-image { margin-top: 50px; }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none; /* Hide default menu on mobile */
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                padding: 20px;
+                box-shadow: var(--shadow-sm);
+                text-align: center;
+            }
+            nav ul.show {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .top-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div id="google_translate_element"></div>
+        <div class="social-icons">
+            <a href="https://www.youtube.com/@minbertv1" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/minbertv" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://t.me/minbertv" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://www.tiktok.com/@minber_tv" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/minbertv" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/minbertv" target="_blank" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+    </div>
+
+    <header>
+        <a href="https://www.minbertv.com" class="logo-container">
+            <span class="logo-text">ሚንበር ቲቪ</span>
+        </a>
+        
+        <nav>
+            <ul id="nav-links">
+                <li><a href="#">መነሻ (Home)</a></li>
+                <li><a href="https://minbertv.com/?cat=245">ዜና (News)</a></li>
+                <li><a href="https://minbertv.com/?cat=237">ፕሮግራሞች (Programs)</a></li>
+                <li><a href="https://minbertv.com/?cat=235">ምርኩዝ (Mirkuz)</a></li>
+                <li><a href="https://minbertv.com/?page_id=7869">አግኙን (Contact)</a></li>
+            </ul>
+        </nav>
+        
+        <div class="mobile-menu-btn" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
     </header>
 
-    <main class="container">
-      <section class="hero fade-up section-panel section-hero">
-        <div class="hero-content">
-          <p class="eyebrow">Official Social Hub</p>
-          <h1>All Minber TV Content in One Place</h1>
-          <p class="lead">
-            Discover programs, highlights, and live updates. Follow Minber TV on every platform from one conversion-focused landing page.
-          </p>
-          <div class="hero-actions">
-            <a href="https://www.youtube.com/@minbertv1" class="btn btn-youtube" target="_blank" rel="noreferrer noopener">Watch on YouTube</a>
-            <a href="https://t.me/minbertv" class="btn btn-telegram" target="_blank" rel="noreferrer noopener">Join on Telegram</a>
-          </div>
+    <section class="hero">
+        <div class="hero-content reveal">
+            <h1>እንኳን ወደ ሚንበር ቲቪ በደህና መጡ!</h1>
+            <p>ሚንበር ቲቪ እሴቶቻችንን ጠብቆ፣ ማህበራዊ ኃላፊነቱን በአግባቡ በመወጣት፣ ጥራት ያላቸውን እና አስተማሪ ፕሮግራሞችን ወደ እርሶ የሚያደርስ ቀዳሚ የቴሌቪዥን ጣቢያ ነው። ሁለንተናዊ ከፍታን ከእኛ ጋር ያጣጥሙ!</p>
+            <a href="https://www.youtube.com/@minbertv1" target="_blank" class="btn btn-primary">የዩቲዩብ ቻናላችንን ይጎብኙ</a>
+        </div>
+        <div class="hero-image reveal">
+            <img src="C:\Users\UserZ\Desktop\website\media\min.jpg" alt="Minber TV Studio/Production">
+        </div>
+    </section>
+
+    <section class="videos-section">
+        <h2 class="section-title reveal">ተወዳጅ ፕሮግራሞቻችን</h2>
+        <p class="section-subtitle reveal">ከዩቲዩብ ገፃችን የተመረጡ እና በቅርብ ጊዜ የተለቀቁ ዝግጅቶች</p>
+
+        <div class="video-grid reveal">
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://youtu.be/J8cJZ0OBAck?si=WSoMK8WRzvauCf9y" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://youtu.be/GedaqWlPxso?si=l7UHVR3pyaL4yJZ_" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://youtu.be/6ebmTA0U_xI?si=9TdXDpjHwH_qoqVB" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
 
-        <div class="hero-media">
-          <img
-            src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=900&q=80"
-            alt="Minber TV studio style visual"
-          />
+        <div class="playlist-container reveal">
+            <div class="video-container">
+                <iframe src="https://youtu.be/XxGLPQrsFUs?si=zRWKQjbsGeduu1nu" title="Minber TV Latest Uploads" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
-      </section>
+    </section>
 
-      <section class="links-section fade-up section-panel section-links" id="links">
-        <h2>Connect With Us</h2>
-        <p class="section-subtitle">Follow Minber TV on your favorite platform.</p>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="https://www.minbertv.com" class="logo-text">ሚንበር ቲቪ</a>
+                <p class="footer-desc">ሁለንተናዊ ከፍታ! አስተማሪ፣ አዝናኝ እና ወቅታዊ መረጃዎችን ለኢትዮጵያውያን እና ለመላው ዓለም እናደርሳለን።</p>
+                <div class="footer-socials">
+                    <a href="https://www.youtube.com/@minbertv1" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/minbertv" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://t.me/minbertv" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://www.tiktok.com/@minber_tv" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://twitter.com/minbertv" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
 
-        <div class="cards" id="socialCards">
-          <a class="social-card" href="https://www.youtube.com/@minbertv1" target="_blank" rel="noreferrer noopener">
-            <span class="icon"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.5-.4-5.2c-.2-1-1-1.7-2-2C18.9 4.4 12 4.4 12 4.4s-6.9 0-8.6.4c-1 .3-1.8 1-2 2C1 8.5 1 12 1 12s0 3.5.4 5.2c.2 1 1 1.7 2 2 1.7.4 8.6.4 8.6.4s6.9 0 8.6-.4c1-.3 1.8-1 2-2 .4-1.7.4-5.2.4-5.2ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg></span>
-            <div><h3>YouTube</h3><p>Watch full episodes and top clips.</p></div>
-          </a>
-          <a class="social-card" href="https://t.me/minbertv" target="_blank" rel="noreferrer noopener">
-            <span class="icon"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.6 19c-.2 1-1 1.2-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.3-.1-.5-.6-.2L6.1 12.8l-4.9-1.5c-1-.3-1-1 .2-1.5L20.5 3c.9-.3 1.7.2 1.4 1.3Z"/></svg></span>
-            <div><h3>Telegram</h3><p>Instant channel updates and announcements.</p></div>
-          </a>
-          <a class="social-card" href="https://www.facebook.com/minbertv" target="_blank" rel="noreferrer noopener">
-            <span class="icon"><svg viewBox="0 0 24 24"><path d="M13.5 22v-9h3l.5-3h-3.5V8.1c0-.9.3-1.6 1.7-1.6H17V3.7c-.8-.1-1.8-.2-2.9-.2-2.9 0-4.8 1.8-4.8 5V10H6.5v3h2.8v9h4.2Z"/></svg></span>
-            <div><h3>Facebook</h3><p>Community posts and events.</p></div>
-          </a>
-          <a class="social-card" href="https://www.instagram.com/minbertv" target="_blank" rel="noreferrer noopener">
-            <span class="icon"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm5 3.3a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2.2a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 0 0 0-4.6Zm5.1-3.1a1.1 1.1 0 1 1 0 2.1 1.1 1.1 0 0 1 0-2.1Z"/></svg></span>
-            <div><h3>Instagram</h3><p>Stories, reels, and behind-the-scenes content.</p></div>
-          </a>
-          <a class="social-card" href="https://www.tiktok.com/@minber_tv" target="_blank" rel="noreferrer noopener">
-            <span class="icon"><svg viewBox="0 0 24 24"><path d="M14.7 3c.3 1.8 1.4 3.4 3 4.3 1 .6 2.1.9 3.3.9V11c-1.4 0-2.8-.3-4.1-1v6.3a6.3 6.3 0 1 1-6.3-6.3c.3 0 .6 0 .9.1v3a3.1 3.1 0 1 0 2.9 3.1V3h2.3Z"/></svg></span>
-            <div><h3>TikTok</h3><p>Short-form highlights and trending videos.</p></div>
-          </a>
-          <a class="social-card" href="https://twitter.com/minbertv" target="_blank" rel="noreferrer noopener">
-            <span class="icon"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.7 7.7L23 22h-6l-4.7-6.1L7 22H3.9l7.2-8.2L1 2h6.2l4.3 5.6L18.9 2Zm-1.1 18h1.7L6.4 3.9H4.6L17.8 20Z"/></svg></span>
-            <div><h3>Twitter / X</h3><p>Breaking updates and live commentary.</p></div>
-          </a>
+            <div class="footer-links">
+                <h4>አቋራጭ ሊንኮች</h4>
+                <ul>
+                    <li><a href="https://minbertv.com/?page_id=7855">ስለ እኛ (About Us)</a></li>
+                    <li><a href="https://minbertv.com/?cat=237">ፕሮግራሞች (Programs)</a></li>
+                    <li><a href="https://minbertv.com/?cat=245">ዜና (News)</a></li>
+                    <li><a href="https://minbertv.com/?page_id=7869">አግኙን (Contact)</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>አድራሻ</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> አዲስ አበባ፣ ኢትዮጵያ</li>
+                    <li><i class="fas fa-envelope"></i> info@minbertv.com</li>
+                    <li><i class="fas fa-globe" href="https://minbertv.com"></i> www.minbertv.com</li>
+                </ul>
+            </div>
         </div>
-      </section>
-
-      <section class="videos fade-up section-panel section-videos" id="programs">
-        <h2>Featured Videos</h2>
-        <p class="section-subtitle">Program highlights and latest uploads.</p>
-        <div class="video-grid">
-          <a class="video-card" href="https://www.youtube.com/@minbertv1" target="_blank" rel="noreferrer noopener"><span class="video-text">Latest Episode</span></a>
-          <a class="video-card" href="https://www.youtube.com/@minbertv1" target="_blank" rel="noreferrer noopener"><span class="video-text">Top Interview</span></a>
-          <a class="video-card" href="https://www.youtube.com/@minbertv1" target="_blank" rel="noreferrer noopener"><span class="video-text">Weekly Roundup</span></a>
-          <a class="video-card" href="https://www.youtube.com/@minbertv1" target="_blank" rel="noreferrer noopener"><span class="video-text">Special Program</span></a>
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> Minber TV. መብቱ በህግ የተጠበቀ ነው። (All Rights Reserved).</p>
         </div>
-      </section>
-    </main>
-
-    <footer class="footer fade-up" id="footerMain">
-      <div class="footer-inner">
-        <h2>About Minber TV</h2>
-        <p class="footer-about">Minber TV is your gateway to programs, updates, and community across all major social platforms.</p>
-        <div class="footer-links">
-          <a href="https://www.youtube.com/@minbertv1" target="_blank" rel="noreferrer noopener">YouTube</a>
-          <a href="https://t.me/minbertv" target="_blank" rel="noreferrer noopener">Telegram</a>
-          <a href="https://www.facebook.com/minbertv" target="_blank" rel="noreferrer noopener">Facebook</a>
-          <a href="https://www.instagram.com/minbertv" target="_blank" rel="noreferrer noopener">Instagram</a>
-          <a href="https://www.tiktok.com/@minber_tv" target="_blank" rel="noreferrer noopener">TikTok</a>
-          <a href="https://twitter.com/minbertv" target="_blank" rel="noreferrer noopener">Twitter</a>
-        </div>
-        <p>© <span id="year"></span> Minber TV. All rights reserved.</p>
-      </div>
     </footer>
 
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'am', // Default Language is Amharic
+                includedLanguages: 'am,en,ar', // Amharic, English, Arabic
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <script>
-	const yearEl = document.getElementById("year");
-const cards = document.querySelectorAll(".social-card");
-const menuBtn = document.getElementById("menuBtn");
-const mobileMenu = document.getElementById("mobileMenu");
-const navLinks = document.querySelectorAll(".main-nav a");
+        // Set dynamic copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-if (yearEl) {
-  yearEl.textContent = new Date().getFullYear();
-}
+        // Mobile Menu Toggle Function
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('show');
+        }
 
-if (menuBtn && mobileMenu) {
-  menuBtn.addEventListener("click", () => {
-    const isOpen = mobileMenu.classList.toggle("open");
-    menuBtn.setAttribute("aria-expanded", String(isOpen));
-  });
-}
+        // Smooth Scroll Animation (Intersection Observer)
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    navLinks.forEach((item) => item.classList.remove("is-active"));
-    link.classList.add("is-active");
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Optional: animate only once
+                    }
+                });
+            }, {
+                threshold: 0.1, // Trigger when 10% visible
+                rootMargin: "0px 0px -50px 0px"
+            });
 
-    if (mobileMenu && window.innerWidth <= 860) {
-      mobileMenu.classList.remove("open");
-      menuBtn?.setAttribute("aria-expanded", "false");
-    }
-  });
-});
-
-cards.forEach((card) => {
-  card.addEventListener("mousemove", (event) => {
-    const rect = card.getBoundingClientRect();
-    const px = (event.clientX - rect.left) / rect.width;
-    const py = (event.clientY - rect.top) / rect.height;
-
-    const rotateY = (px - 0.5) * 8;
-    const rotateX = (0.5 - py) * 8;
-
-    card.style.transform = `translateY(-4px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
-  });
-
-  card.addEventListener("mouseleave", () => {
-    card.style.transform = "translateY(0) rotateX(0) rotateY(0)";
-  });
-});
-
-	</script>
-  </body>
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+        });
+    </script>
+</body>
 </html>
