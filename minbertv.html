@@ -432,6 +432,76 @@
                 gap: 10px;
             }
         }
+
+
+  .contact-container {
+    width: 100%;
+    max-width: 500px;
+    background: var(--card);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  .contact-container h2 {
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .contact-container p {
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0d1016;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s ease;
+  }
+
+  input:focus, textarea:focus {
+    border-color: var(--accent);
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: none;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #111;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+
+  button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .status {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
     </style>
 </head>
 <body>
@@ -478,7 +548,16 @@
             <img src="https://minbertv.com/wp-content/uploads/2024/04/minber272x90.png" alt="Minber TV Studio/Production">
         </div>
     </section>
+    <div class="contact-container">
+     <p>
+         ሚንበር ቲቪ — ሁለንተናዊ ከፍታ!<br>
 
+ሚንበር ቲቪ ጥራቱን የጠበቀ፣ እሴትን መሰረት ያደረገ እና ማህበራዊ ኃላፊነቱን የተረዳ ይዘት ለተመልካቾች ለማድረስ ቆርጦ የተነሳ ቀዳሚ የቴሌቪዥን ጣቢያ ነው። ጣቢያው ከተመሰረተበት ጊዜ ጀምሮ በኢትዮጵያ ውስጥም ሆነ ከመንደሩ ውጭ ለሚገኙ ኢትዮጵያውያንና ትውልደ-ኢትዮጵያውያን መንፈሳዊ፣ ማህበራዊ እና ስነ-ልቦናዊ ከፍታን የሚሰጡ ዝግጅቶችን ሲያቀርብ ቆይቷል።
+<br>
+ራዕያችን<br>
+የማህበረሰባችንን መልካም እሴቶች ጠብቆ በማቆየት፣ በእውቀት ላይ የተመሰረተ እና በስነ-ምግባር የታነጸ ትውልድ እንዲገነባ የራሳችንን አሻራ ማሳረፍ ነው። ሚንበር ቲቪ የሰላም፣ የፍቅር እና የመከባበር ድምጽ በመሆን በኢትዮጵያ የብዙሃን መገናኛ ዘርፍ ውስጥ በታማኝነቱ የሚጠቀስ ተመራጭ ጣቢያ ለመሆን ይተጋል።
+     </p>
+    </div>
     <section class="videos-section">
         <h2 class="section-title reveal">ተወዳጅ ፕሮግራሞቻችን</h2>
         <p class="section-subtitle reveal">ከዩቲዩብ ገፃችን የተመረጡ እና በቅርብ ጊዜ የተለቀቁ ዝግጅቶች</p>
@@ -504,6 +583,54 @@
         </div>
     </section>
 
+<div class="contact-container">
+  <h2>Contact</h2>
+
+  <form id="contact-form">
+    <div class="form-group">
+      <input type="text" name="name" placeholder="Your Name" required>
+    </div>
+
+    <div class="form-group">
+      <input type="email" name="email" placeholder="Your Email" required>
+    </div>
+
+    <div class="form-group">
+      <textarea name="message" placeholder="Your Message" required></textarea>
+    </div>
+
+    <button type="submit">Submit</button>
+    <div class="status" id="status"></div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+  emailjs.init("41BtcM2_bb_ACBv_J");
+})();
+
+const form = document.getElementById("contact-form");
+const status = document.getElementById("status");
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  status.innerText = "Sending...";
+
+  emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+    .then(() => {
+      status.innerText = "Message sent successfully!";
+      form.reset();
+    })
+    .catch((error) => {
+      status.innerText = "Failed to send. Try again.";
+      console.error(error);
+    });
+});
+</script>
+    
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
