@@ -38,7 +38,7 @@ const projectData = [
     title: "Coffee Website",
     description: "A cozy coffee brand website with warm visuals, product highlights, and user-friendly navigation.",
     image: "coffee.png",
-    previewImage: "coffee.png",
+    previewImage: "coffee.jpeg",
     previewLink: "etete.html"
   }
 ];
