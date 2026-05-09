@@ -33,6 +33,13 @@ const projectData = [
     image: "minber.jpeg",
     previewImage: "minber.jpeg",
     previewLink: "minbertv.html"
+  },
+  {
+    title: "Coffee Website",
+    description: "A cozy coffee brand website with warm visuals, product highlights, and user-friendly navigation.",
+    image: "coffee.png",
+    previewImage: "coffee.png",
+    previewLink: "etete.html"
   }
 ];
 
