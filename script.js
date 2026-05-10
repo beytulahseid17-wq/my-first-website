@@ -18,6 +18,12 @@ const projectModalClose = document.getElementById("projectModalClose");
 const projectModalOverlay = document.getElementById("projectModalOverlay");
 const projectModalImage = document.getElementById("projectModalImage");
 const projectModalLink = document.getElementById("projectModalLink");
+const privacyLink = document.getElementById("privacyLink");
+const termsLink = document.getElementById("termsLink");
+const legalContent = document.getElementById("legalContent");
+const legalTitle = document.getElementById("legalTitle");
+const legalBody = document.getElementById("legalBody");
+const sectionsForLegalToggle = document.querySelectorAll(".intro, .about, .skills, .projects");
 
 const projectData = [
   {
@@ -25,7 +31,7 @@ const projectData = [
     description: "3D animation cartoon inspired portfolio concept used by modern companies.",
     image: "preview.png",
     previewImage: "preview.png",
-    previewLink: "preview.html"
+    previewLink: "portfolio.html"
   },
   {
     title: "Business Landing Page",
@@ -77,6 +83,7 @@ function renderProjects() {
       <div class="project-card__body">
         <h3>${project.title}</h3>
         <p>${project.description}</p>
+        <div class="project-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
       </div>
     `;
 
@@ -128,6 +135,58 @@ projectsSection.addEventListener("keydown", (event) => {
 
 projectModalClose.addEventListener("click", closeProjectModal);
 projectModalOverlay.addEventListener("click", closeProjectModal);
+function showLegal(type) {
+  sectionsForLegalToggle.forEach((section) => {
+    section.hidden = true;
+  });
+  legalContent.hidden = false;
+  if (type === "privacy") {
+    legalTitle.textContent = "Privacy Policy";
+    legalBody.innerHTML = `
+      <p>Welcome to my website. Your privacy is important to me. This Privacy Policy explains how information may be collected and used when you visit this website.</p>
+      <h4>Information I Collect</h4>
+      <p>I may collect basic information such as: Name, Email address, and messages sent through contact forms.</p>
+      <h4>How Your Information Is Used</h4>
+      <p>Your information may be used to: Respond to inquiries, Improve website experience, and communicate about services or projects.</p>
+      <h4>Cookies and Analytics</h4>
+      <p>This website may use cookies or analytics tools to understand visitor activity and improve performance.</p>
+      <h4>Third-Party Services</h4>
+      <p>Some third-party services or links may appear on this website. I am not responsible for the privacy practices of external websites.</p>
+      <h4>Data Protection</h4>
+      <p>I do my best to keep your information secure and protected.</p>
+      <h4>Contact</h4>
+      <p>If you have any questions about this Privacy Policy, you can contact me through the contact section of this website.</p>
+    `;
+  } else {
+    legalTitle.textContent = "Terms & Conditions";
+    legalBody.innerHTML = `
+      <p>By using this website, you agree to the following terms and conditions.</p>
+      <h4>Website Usage</h4>
+      <p>The content on this website is provided for informational and portfolio purposes only.</p>
+      <h4>Intellectual Property</h4>
+      <p>All website content, designs, and projects displayed on this website belong to the website owner unless stated otherwise.</p>
+      <h4>Limitations</h4>
+      <p>I am not responsible for any damages or issues resulting from the use of this website or third-party links.</p>
+      <h4>External Links</h4>
+      <p>This website may contain links to external websites. I am not responsible for their content or services.</p>
+      <h4>Changes</h4>
+      <p>These terms may be updated at any time without prior notice.</p>
+      <h4>Contact</h4>
+      <p>For questions regarding these terms, please use the contact section of this website.</p>
+    `;
+  }
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+privacyLink.addEventListener("click", (event) => {
+  event.preventDefault();
+  showLegal("privacy");
+});
+
+termsLink.addEventListener("click", (event) => {
+  event.preventDefault();
+  showLegal("terms");
+});
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && projectModal.classList.contains("open")) {
