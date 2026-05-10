@@ -155,6 +155,15 @@ main { margin-top: 90px; }
 .project-card__image { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; }
 .project-card__body h3 { margin: 0.9rem 0 0.3rem; }
 .project-card__body p { margin: 0; color: var(--muted); }
+.project-tech { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.7rem; }
+.project-tech span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface-2) 85%, transparent);
+}
 
 .contact { background: var(--skills-bg); color: #fff; text-align: center; }
 .contact-form { padding: 2.5rem 0; background: color-mix(in srgb, var(--surface) 86%, transparent); }
@@ -186,6 +195,11 @@ main { margin-top: 90px; }
   box-shadow: 0 0 0 3px color-mix(in srgb, #3676ff 18%, transparent);
 }
 .form-submit { min-width: 150px; }
+.legal-content { padding: 2.5rem 0; }
+.legal-header { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; flex-wrap: wrap; }
+.legal-updated { margin: 0 0 1rem; color: var(--muted); font-size: 0.95rem; }
+.legal-body { color: var(--muted); line-height: 1.8; display: grid; gap: 0.7rem; }
+.legal-body h4 { color: var(--text); margin: 0.3rem 0 0; }
 
 .site-footer { padding: 2rem 0 2.6rem; background: var(--surface); border-top: 1px solid var(--line); }
 .site-footer__inner { display: grid; gap: 1.2rem; }
