@@ -3,178 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etete Coffee | Modern Ethiopian Heritage</title>
+    <title>Etete Coffee | Professional Coffee Culture</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --espresso: #0c0a09;
-            --gold: #d4af37;
-            --beige: #f5f5f4;
-            --card-bg: #151210;
+            --espresso: #0a0908;
+            --gold: #c5a059;
+            --beige: #fdfaf5;
+            --muted: #8c8c8c;
+            --section-spacing: 120px;
         }
+
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--espresso);
             color: var(--beige);
-        }
-        .font-serif { font-family: 'Playfair Display', serif; }
-        
-        .glass {
-            background: rgba(21, 18, 16, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .hero-gradient {
-            background: linear-gradient(to right, #0c0a09 10%, rgba(12, 10, 9, 0.7) 50%, transparent 100%);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .gold-glow:hover {
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+
+        /* Loader Styles */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--espresso);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--espresso); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+        .loader-line {
+            width: 100px;
+            height: 1px;
+            background: rgba(197, 160, 89, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
 
-        .parallax {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        .loader-line::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            animation: loading 1.5s infinite;
         }
 
         @keyframes loading {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(200%); }
+            100% { left: 100%; }
+        }
+
+        /* Nav Glass Effect */
+        .glass {
+            background: rgba(10, 9, 8, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Typography & Layout fixes */
+        h1, h2, h3 { letter-spacing: -0.01em; }
+        
+        /* Hero Overlap Fix */
+        .hero-content {
+            padding-top: 120px; 
+        }
+
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(10, 9, 8, 0.2) 0%, rgba(10, 9, 8, 1) 90%);
+        }
+
+        section { padding: var(--section-spacing) 0; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--espresso); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+        @keyframes subtle-zoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+        .animate-zoom { animation: subtle-zoom 25s infinite alternate ease-in-out; }
+
+        /* Mobile Menu Overlay */
+        #mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: var(--espresso);
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        #mobile-menu.active {
+            transform: translateX(0);
         }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden">
+<body class="antialiased">
 
-    <!-- Loading Animation -->
-    <div id="loader" class="fixed inset-0 z-[100] bg-[#0c0a09] flex items-center justify-center transition-opacity duration-700">
-        <div class="flex flex-col items-center">
-            <i class="fa-solid fa-mug-hot text-4xl text-[#d4af37] animate-bounce mb-4"></i>
-            <div class="h-px w-24 bg-white/10 relative overflow-hidden">
-                <div class="absolute inset-0 bg-[#d4af37] w-1/2 animate-[loading_1.5s_infinite_ease-in-out]"></div>
-            </div>
+    <!-- Pre-loader -->
+    <div id="loader">
+        <span class="font-serif text-2xl tracking-[0.3em] text-white uppercase italic">Etete</span>
+        <div class="loader-line"></div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu">
+        <button id="close-menu" class="absolute top-10 right-10 text-white text-2xl">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="flex flex-col gap-8 text-center">
+            <a href="#home" class="mobile-link font-serif text-4xl hover:text-[#c5a059] transition-colors">Home</a>
+            <a href="#about" class="mobile-link font-serif text-4xl hover:text-[#c5a059] transition-colors">Heritage</a>
+            <a href="#menu" class="mobile-link font-serif text-4xl hover:text-[#c5a059] transition-colors">Collection</a>
+            <a href="#gallery" class="mobile-link font-serif text-4xl hover:text-[#c5a059] transition-colors">Gallery</a>
+            <a href="#contact" class="mobile-link font-serif text-4xl hover:text-[#c5a059] transition-colors">Location</a>
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6">
-        <div class="container mx-auto px-6 lg:px-12 flex justify-between items-center">
-            <div class="flex items-center gap-2 cursor-pointer group">
-                <i class="fa-solid fa-coffee text-[#d4af37] text-2xl group-hover:rotate-12 transition-transform"></i>
-                <span class="font-serif text-2xl font-bold tracking-widest text-white uppercase">Etete</span>
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8">
+        <div class="container mx-auto px-8 lg:px-16 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 border border-[#c5a059] rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-seedling text-[#c5a059] text-sm"></i>
+                </div>
+                <span class="font-serif text-3xl font-bold tracking-widest text-white uppercase italic">Etete</span>
             </div>
             
-            <div class="hidden md:flex items-center gap-10 text-white/90">
-                <a href="#home" class="text-sm font-medium hover:text-[#d4af37] transition-colors">Home</a>
-                <a href="#about" class="text-sm font-medium hover:text-[#d4af37] transition-colors">Story</a>
-                <a href="#menu" class="text-sm font-medium hover:text-[#d4af37] transition-colors">Menu</a>
-                <a href="#contact" class="text-sm font-medium hover:text-[#d4af37] transition-colors">Visit Us</a>
-                <button class="bg-[#d4af37] text-[#0c0a09] px-7 py-2.5 rounded-full font-bold text-sm hover:bg-white transition-all transform hover:scale-105">
-                    Reservation
+            <div class="hidden md:flex items-center gap-12">
+                <a href="#home" class="text-[11px] uppercase tracking-[0.2em] font-medium hover:text-[#c5a059] transition-colors">Home</a>
+                <a href="#about" class="text-[11px] uppercase tracking-[0.2em] font-medium hover:text-[#c5a059] transition-colors">Heritage</a>
+                <a href="#menu" class="text-[11px] uppercase tracking-[0.2em] font-medium hover:text-[#c5a059] transition-colors">Collection</a>
+                <a href="#gallery" class="text-[11px] uppercase tracking-[0.2em] font-medium hover:text-[#c5a059] transition-colors">Gallery</a>
+                <button class="border border-[#c5a059] text-[#c5a059] px-8 py-3 rounded-none text-[11px] uppercase tracking-[0.2em] hover:bg-[#c5a059] hover:text-white transition-all">
+                    Inquire
                 </button>
             </div>
-
-            <button class="md:hidden text-white text-2xl"><i class="fa-solid fa-bars-staggered"></i></button>
+            <!-- Fixed Mobile Toggle -->
+            <button id="menu-toggle" class="md:hidden text-white text-xl">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center pt-24 overflow-hidden">
+    <section id="home" class="relative min-h-screen flex items-center p-0 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=2000&q=80" 
-                 class="w-full h-full object-cover opacity-50" alt="Coffee Hero">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=2000&q=80" 
+                 class="w-full h-full object-cover opacity-40 animate-zoom" alt="Coffee">
             <div class="absolute inset-0 hero-gradient"></div>
         </div>
 
-        <div class="container mx-auto px-6 lg:px-12 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-up" data-aos-duration="1200">
-                <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-md">
-                    <span class="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
-                    <span class="text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em]">Atlas, Addis Ababa</span>
+        <div class="container mx-auto px-8 lg:px-16 relative z-10 hero-content">
+            <div class="max-w-5xl" data-aos="fade-up" data-aos-duration="1500">
+                <div class="mb-14">
+                    <span class="text-[#c5a059] text-xs uppercase tracking-[0.5em] font-bold inline-block border-b border-[#c5a059]/30 pb-2">
+                        Est. 2024 • Addis Ababa
+                    </span>
                 </div>
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-[1.1] mb-8">
-                    Modern <span class="text-[#d4af37] italic">Culture,</span><br>Ethiopian Soul.
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-[1.1] mb-10">
+                    Where Tradition <br> Meets <span class="text-[#c5a059] italic font-normal">Modern</span> Coffee Culture
                 </h1>
-                <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-lg leading-relaxed">
-                    Experience the pinnacle of specialty coffee in the heart of Bole. Hand-crafted, heritage-rooted, and beautifully modern.
+                <p class="text-base md:text-lg text-gray-300 max-w-xl mb-12 font-light leading-relaxed">
+                    Freshly roasted Ethiopian beans, warm atmosphere, and handcrafted coffee made for meaningful moments.
                 </p>
-                <div class="flex flex-wrap gap-5">
-                    <a href="#menu" class="bg-[#d4af37] text-[#0c0a09] px-10 py-4 rounded-full font-bold hover:bg-white transition-all flex items-center gap-3 group">
-                        Explore Menu
-                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                <div class="flex flex-col sm:flex-row gap-8">
+                    <a href="#menu" class="bg-[#c5a059] text-white text-center px-12 py-5 text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-white hover:text-black transition-all">
+                        Discover the Menu
                     </a>
-                    <a href="#about" class="px-10 py-4 rounded-full font-bold border border-white/20 hover:bg-white/10 transition-all">
+                    <a href="#about" class="flex items-center justify-center gap-4 text-[11px] uppercase tracking-[0.3em] font-bold group">
+                        <span class="h-px w-8 bg-white group-hover:w-16 transition-all"></span>
                         Our Story
                     </a>
-                </div>
-            </div>
-
-            <!-- Visual Feature -->
-            <div class="hidden lg:block" data-aos="zoom-in-left" data-aos-delay="400">
-                <div class="glass p-8 rounded-[2.5rem] shadow-2xl relative">
-                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#d4af37]/20 blur-3xl rounded-full"></div>
-                    <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=800&q=80" 
-                         class="rounded-3xl w-full aspect-[4/3] object-cover mb-8 shadow-xl" alt="Traditional Jebena">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h3 class="text-2xl font-serif font-bold mb-1">Traditional Jebena</h3>
-                            <p class="text-sm text-gray-500">The Authentic Atlas Ritual</p>
-                        </div>
-                        <div class="bg-[#d4af37]/10 text-[#d4af37] p-4 rounded-2xl border border-[#d4af37]/20">
-                            <span class="block text-xl font-bold">4.9</span>
-                            <span class="text-[10px] uppercase font-black text-center">Score</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-32 relative overflow-hidden">
-        <div class="container mx-auto px-6 lg:px-12">
-            <div class="grid lg:grid-cols-2 gap-20 items-center">
-                <div class="relative" data-aos="fade-right">
-                    <div class="aspect-[4/5] rounded-[3rem] overflow-hidden">
-                        <img src="https://tse3.mm.bing.net/th/id/OIP.owaTIiGbeAP2FZnUVuQCvQHaNJ?rs=1&pid=ImgDetMain&o=7&rm=3" class="w-full h-full object-cover" alt="Coffee beans">
-                    </div>
-                    <div class="absolute -bottom-10 -left-10 glass p-10 rounded-3xl hidden md:block" data-aos="zoom-in" data-aos-delay="500">
-                        <span class="text-5xl font-serif font-bold text-[#d4af37] block mb-2">100%</span>
-                        <p class="text-xs uppercase tracking-widest font-bold text-gray-400">Directly Sourced<br>Ethiopian Arabica</p>
+    <section id="about" class="bg-white text-[#0a0908]">
+        <div class="container mx-auto px-8 lg:px-16">
+            <div class="grid lg:grid-cols-2 gap-24 items-center">
+                <div data-aos="fade-right">
+                    <span class="text-[#c5a059] font-bold tracking-[0.4em] uppercase text-[10px] mb-8 block">The Heritage</span>
+                    <h2 class="text-4xl md:text-6xl font-serif font-bold mb-10 leading-[1.1]">Architectural Design, <br>Ancestral Taste.</h2>
+                    <p class="text-gray-600 text-lg mb-10">
+                        Etete is more than a café; it is an urban sanctuary located in the heart of Atlas. We bridge the gap between ancient Ethiopian rituals and the fast-paced modern world.
+                    </p>
+                    <div class="grid grid-cols-2 gap-12 pt-8 border-t border-gray-200">
+                        <div>
+                            <h4 class="font-bold text-[11px] uppercase tracking-widest mb-4 font-serif">Origin</h4>
+                            <p class="text-sm text-gray-500">100% Arabica sourced directly from the high-altitude Guji and Yirgacheffe regions.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-[11px] uppercase tracking-widest mb-4 font-serif">Roast</h4>
+                            <p class="text-sm text-gray-500">Small-batch artisan roasting handled daily by our master roasters in-house.</p>
+                        </div>
                     </div>
                 </div>
-                
-                <div data-aos="fade-up">
-                    <span class="text-[#d4af37] font-bold tracking-[0.3em] uppercase text-xs mb-6 block">The Etete Heritage</span>
-                    <h2 class="text-5xl md:text-6xl font-serif font-bold text-white mb-8 leading-tight">Beyond the Cup:<br>An Urban Sanctuary.</h2>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
-                        Located in the vibrant Atlas neighborhood, Etete Coffee represents the bridge between Ethiopia’s legendary coffee ceremonies and the modern urban lifestyle. We believe coffee is a ritual that fuels creativity and builds community.
-                    </p>
-                    
-                    <div class="grid grid-cols-2 gap-8">
-                        <div class="flex flex-col gap-3">
-                            <i class="fa-solid fa-award text-[#d4af37] text-2xl"></i>
-                            <h4 class="font-bold text-white uppercase text-sm tracking-wider">Specialty Grade</h4>
-                            <p class="text-sm text-gray-500">Only the top 5% of beans make it to our roasting room.</p>
-                        </div>
-                        <div class="flex flex-col gap-3">
-                            <i class="fa-solid fa-wifi text-[#d4af37] text-2xl"></i>
-                            <h4 class="font-bold text-white uppercase text-sm tracking-wider">Work Friendly</h4>
-                            <p class="text-sm text-gray-500">Premium high-speed internet for digital creators.</p>
-                        </div>
+                <div class="relative" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=1200&q=80" 
+                         class="w-full aspect-[4/5] object-cover" alt="Coffee ritual">
+                    <div class="absolute -bottom-12 -left-12 bg-[#0a0908] p-12 hidden xl:block">
+                        <p class="text-white text-4xl font-serif">"Quality is the <br>only constant."</p>
                     </div>
                 </div>
             </div>
@@ -182,169 +231,106 @@
     </section>
 
     <!-- Menu Section -->
-    <section id="menu" class="py-32 bg-[#0c0a09]">
-        <div class="container mx-auto px-6 lg:px-12">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-                <div data-aos="fade-up">
-                    <span class="text-[#d4af37] font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Curated Selection</span>
-                    <h2 class="text-5xl font-serif font-bold text-white">Signature Offerings</h2>
-                </div>
-                <div data-aos="fade-left">
-                    <a href="#" class="group text-sm font-bold flex items-center gap-3 border-b border-white/10 pb-2 hover:text-[#d4af37] hover:border-[#d4af37] transition-all">
-                        View Full Menu <i class="fa-solid fa-chevron-right text-xs"></i>
-                    </a>
-                </div>
+    <section id="menu" class="bg-[#0a0908]">
+        <div class="container mx-auto px-8 lg:px-16">
+            <div class="text-center mb-24" data-aos="fade-up">
+                <span class="text-[#c5a059] font-bold tracking-[0.4em] uppercase text-[10px] mb-6 block">The Collection</span>
+                <h2 class="text-5xl md:text-7xl font-serif font-bold text-white italic">Signature Offerings</h2>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Menu Card 1 -->
-                <div class="glass rounded-[2rem] overflow-hidden group gold-glow transition-all duration-500" data-aos="fade-up" data-aos-delay="100">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://hulunem.com/wp-content/uploads/2026/03/etete-coffee-Bole2.webp" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Latte">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                        <div class="absolute top-4 left-4 bg-[#d4af37] text-[#0c0a09] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">Must Try</div>
-                        <div class="absolute bottom-4 right-4 flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20">
-                            <i class="fa-solid fa-star text-[#d4af37] text-[10px]"></i>
-                            <span class="text-xs font-bold text-white">4.9</span>
-                        </div>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="overflow-hidden mb-8">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full aspect-square object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Menu Item">
                     </div>
-                    <div class="p-8">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-2xl font-serif font-bold group-hover:text-[#d4af37] transition-colors">Spiced Macchiato</h3>
-                            <span class="text-xl font-serif text-white ml-4">120 ETB</span>
-                        </div>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-8">Velvety steamed milk marked with our signature espresso blend and local cardamom hints.</p>
-                        <button class="w-full py-4 rounded-2xl bg-white/5 border border-white/10 font-bold hover:bg-[#d4af37] hover:text-[#0c0a09] transition-all flex items-center justify-center gap-3">
-                            Quick Order <i class="fa-solid fa-plus text-xs"></i>
-                        </button>
+                    <div class="flex justify-between items-baseline mb-4">
+                        <h3 class="text-2xl font-serif font-bold text-white">Yirgacheffe Pour-Over</h3>
+                        <span class="text-[#c5a059] font-serif italic text-xl">185 ETB</span>
                     </div>
+                    <p class="text-sm leading-relaxed text-gray-400">Delicate floral notes with a tea-like finish. Sourced directly from the Yirgacheffe hills.</p>
                 </div>
 
-                <!-- Menu Card 2 -->
-                <div class="glass rounded-[2rem] overflow-hidden group gold-glow transition-all duration-500" data-aos="fade-up" data-aos-delay="200">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Pour over">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                        <div class="absolute top-4 left-4 bg-white/20 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">Premium</div>
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="overflow-hidden mb-8">
+                        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full aspect-square object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Menu Item">
                     </div>
-                    <div class="p-8">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-2xl font-serif font-bold group-hover:text-[#d4af37] transition-colors">V60 Yirgacheffe</h3>
-                            <span class="text-xl font-serif text-white ml-4">180 ETB</span>
-                        </div>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-8">Floral and bright profiles. Hand-poured with precision to extract the essence of Yirgacheffe highlands.</p>
-                        <button class="w-full py-4 rounded-2xl bg-white/5 border border-white/10 font-bold hover:bg-[#d4af37] hover:text-[#0c0a09] transition-all flex items-center justify-center gap-3">
-                            Quick Order <i class="fa-solid fa-plus text-xs"></i>
-                        </button>
+                    <div class="flex justify-between items-baseline mb-4">
+                        <h3 class="text-2xl font-serif font-bold text-white">Velvet Cortado</h3>
+                        <span class="text-[#c5a059] font-serif italic text-xl">120 ETB</span>
                     </div>
+                    <p class="text-sm leading-relaxed text-gray-400">Perfectly balanced 1:1 espresso and steamed milk ratio for the modern professional.</p>
                 </div>
 
-                <!-- Menu Card 3 -->
-                <div class="glass rounded-[2rem] overflow-hidden group gold-glow transition-all duration-500" data-aos="fade-up" data-aos-delay="300">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://hulunem.com/wp-content/uploads/2026/03/etete-coffee-Bole1.webp" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Pastry">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <div class="group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="overflow-hidden mb-8">
+                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full aspect-square object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Menu Item">
                     </div>
-                    <div class="p-8">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-2xl font-serif font-bold group-hover:text-[#d4af37] transition-colors">Atlas Croissant</h3>
-                            <span class="text-xl font-serif text-white ml-4">95 ETB</span>
-                        </div>
-                        <p class="text-sm text-gray-400 leading-relaxed mb-8">Flaky, buttery layers baked fresh every morning. Perfect pairing for our dark roast espresso.</p>
-                        <button class="w-full py-4 rounded-2xl bg-white/5 border border-white/10 font-bold hover:bg-[#d4af37] hover:text-[#0c0a09] transition-all flex items-center justify-center gap-3">
-                            Quick Order <i class="fa-solid fa-plus text-xs"></i>
-                        </button>
+                    <div class="flex justify-between items-baseline mb-4">
+                        <h3 class="text-2xl font-serif font-bold text-white">Guji Dark Roast</h3>
+                        <span class="text-[#c5a059] font-serif italic text-xl">110 ETB</span>
                     </div>
+                    <p class="text-sm leading-relaxed text-gray-400">Bold, chocolatey profile with a heavy body. The ultimate morning wake-up call.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Experience Gallery -->
-    <section id="experience" class="py-32 bg-[#080605]">
-        <div class="container mx-auto px-6 lg:px-12 text-center mb-16" data-aos="fade-up">
-            <span class="text-[#d4af37] font-bold tracking-[0.3em] uppercase text-xs mb-4 block">The Vibe</span>
-            <h2 class="text-5xl font-serif font-bold text-white mb-6">Designed for Immersion</h2>
-        </div>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 auto-rows-[250px]">
-            <div class="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden group" data-aos="zoom-in">
-                <img src="https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="Interior">
+    <!-- Restored Gallery Section -->
+    <section id="gallery" class="bg-white py-32">
+        <div class="container mx-auto px-8 lg:px-16">
+            <div class="text-center mb-24">
+                <span class="text-[#c5a059] font-bold tracking-[0.4em] uppercase text-[10px] mb-6 block">Atmosphere</span>
+                <h2 class="text-5xl md:text-7xl font-serif font-bold text-[#0a0908]">The Visual Journal</h2>
             </div>
-            <div class="rounded-3xl overflow-hidden group" data-aos="zoom-in" data-aos-delay="100">
-                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="Latte art">
-            </div>
-            <div class="rounded-3xl overflow-hidden group" data-aos="zoom-in" data-aos-delay="200">
-                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="Coffee bar">
-            </div>
-            <div class="md:col-span-2 rounded-3xl overflow-hidden group" data-aos="zoom-in" data-aos-delay="300">
-                <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="Beans">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGJc6-u8I3l2smOGjHMc3mbwkPgKyiQqgZcktd7QOvbgjFEvcJFhEZ6q13kjb2PLavYmlwxriQPWzs2pUB3SqhM4HvqIE0BMueCX-eWpziNSqeAr7ujtAkY5ndayLSOAhpkIZY=w172-h224-p-k-no" class="w-full h-64 object-cover" data-aos="zoom-in">
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHj45yuzV3hiiHJTaJwRkppBz80-vk9mqKKglu3AKxLoyaDRMZJ3eNdmtwnEWZqx2LyUFdYJ6bxowoN8FV6sUmf8hCJxqRfQH7aS1R7DrQiLEnR009rjwmuPF7Wp_mMQaNtHZR3IA=w172-h224-p-k-no" class="w-full h-64 object-cover mt-8" data-aos="zoom-in" data-aos-delay="100">
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAEDBLFew2U34ncBAHSRBI1_Ng5SM7sdL6Fzv46HzrzBIMNoQ8MEhfJfUlpTcWEt0cxOYJMeTkjzrQrY-0cmwOq01IjuKs3r6URI5nla6sLtoNrfju0IChnA8D8nvzOVTrTPdpXm0Q=w172-h224-p-k-no" class="w-full h-64 object-cover" data-aos="zoom-in" data-aos-delay="200">
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAEx45qxSeVxDxP2hYv1YJiGSl5Qbd2CubMQcEdVP3J3YC-ibzcemNxni-MU3WO7znY8nk3lT9WG2LxFGFTK0xajGfw93vce1666bVgxPuk8kxAqwMtQ5TgvFa1wA60OJkh6N8x5bg=w172-h224-p-k-no" class="w-full h-64 object-cover mt-8" data-aos="zoom-in" data-aos-delay="300">
             </div>
         </div>
     </section>
 
-    <!-- Visit Us / Footer -->
-    <footer id="contact" class="py-32 border-t border-white/5">
-        <div class="container mx-auto px-6 lg:px-12">
-            <div class="grid lg:grid-cols-4 gap-16 mb-20">
-                <div class="lg:col-span-2">
-                    <div class="flex items-center gap-3 mb-8">
-                        <i class="fa-solid fa-coffee text-[#d4af37] text-3xl"></i>
-                        <span class="font-serif text-3xl font-bold tracking-widest text-white uppercase">Etete</span>
+    <!-- Footer / Contact -->
+    <footer id="contact" class="bg-[#0a0908] border-t border-white/5 py-24">
+        <div class="container mx-auto px-8 lg:px-16">
+            <div class="grid lg:grid-cols-3 gap-24">
+                <div>
+                    <h2 class="font-serif text-4xl font-bold mb-8 italic uppercase tracking-widest text-white">Etete</h2>
+                    <p class="text-sm max-w-xs mb-10 text-gray-400">Crafting meaningful coffee experiences in Addis Ababa since 2024. Tradition redefined for the urban soul.</p>
+                    <div class="flex gap-8 text-xl">
+                        <a href="https://instagram.com" target="_blank" class="hover:text-[#c5a059] transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://facebook.com" target="_blank" class="hover:text-[#c5a059] transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://tiktok.com" target="_blank" class="hover:text-[#c5a059] transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-[#c5a059] transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
                     </div>
-                    <p class="text-gray-400 max-w-sm mb-10 leading-relaxed text-lg">
-                        Creating moments of calm and community through the finest Ethiopian specialty coffee. Join us in the heart of Addis.
-                    </p>
-                    <div class="flex gap-6">
-                        <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:text-[#d4af37] hover:border-[#d4af37] transition-all"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:text-[#d4af37] hover:border-[#d4af37] transition-all"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:text-[#d4af37] hover:border-[#d4af37] transition-all"><i class="fa-brands fa-tiktok"></i></a>
-                    </div>
+                </div>
+                
+                <div>
+				    <h4 class="text-[10px] uppercase tracking-[0.4em] font-bold mb-8 text-[#c5a059]">Location</h4>
+				    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.64431339949!2d38.780143674130535!3d9.00483859105555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b850016d84361%3A0x415062b21fbee62e!2zRXRldGUgQ29mZmVlIC0gQXRsYXMgU2hhbGEgL1ByZW1pdW0gT3V0bGV0LyAo4Yql4Ym04Ym0IOGJoeGKkyk!5e0!3m2!1sen!2set!4v1778415582409!5m2!1sen!2set" width="200" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <p class="text-white text-lg font-serif mb-4">Atlas, Bole District</p>
+                    <p class="text-sm mb-2 text-gray-400">Addis Ababa, Ethiopia</p>
+                    <p class="text-sm text-gray-400">hello@etete.coffee</p>
                 </div>
 
                 <div>
-                    <h4 class="text-white font-bold mb-8 uppercase text-xs tracking-[0.2em]">Contact Us</h4>
-                    <ul class="space-y-6 text-gray-400">
-                        <li class="flex items-start gap-4">
-                            <i class="fa-solid fa-location-dot text-[#d4af37] mt-1"></i>
-                            <span>Atlas Area, Near EU Embassy<br>Bole, Addis Ababa</span>
-                        </li>
-                        <li class="flex items-center gap-4">
-                            <i class="fa-solid fa-phone text-[#d4af37]"></i>
-                            <span>+251 91 123 4567</span>
-                        </li>
-                        <li class="flex items-center gap-4">
-                            <i class="fa-solid fa-envelope text-[#d4af37]"></i>
-                            <span>hello@etete.coffee</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold mb-8 uppercase text-xs tracking-[0.2em]">Opening Hours</h4>
-                    <ul class="space-y-4 text-gray-400">
-                        <li class="flex justify-between">
-                            <span>Mon - Fri</span>
-                            <span class="text-white">7 AM - 10 PM</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>Saturday</span>
-                            <span class="text-white">8 AM - 11 PM</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>Sunday</span>
-                            <span class="text-white">8 AM - 9 PM</span>
-                        </li>
-                    </ul>
+                    <h4 class="text-[10px] uppercase tracking-[0.4em] font-bold mb-8 text-[#c5a059]">Newsletter</h4>
+                    <p class="text-sm mb-8 text-gray-400">Join our private collection for exclusive roasts.</p>
+                    <div class="flex border-b border-white/20 pb-2">
+                        <input type="email" placeholder="Email Address" class="bg-transparent border-none outline-none text-sm w-full text-white placeholder:text-gray-600">
+                        <button class="text-[10px] uppercase tracking-widest font-bold text-[#c5a059]">Join</button>
+                    </div>
                 </div>
             </div>
-
-            <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-gray-600 text-sm italic">© 2024 Etete Coffee. Crafted with Beytulah.</p>
-                <div class="flex gap-10 text-xs text-gray-600 uppercase font-bold tracking-widest">
+            <div class="mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+                <p class="text-[10px] uppercase tracking-widest text-gray-600">© 2024 Etete Coffee. All Rights Reserved.</p>
+                <div class="flex gap-12 text-[10px] uppercase tracking-widest text-gray-600">
                     <a href="#" class="hover:text-white transition-colors">Privacy</a>
                     <a href="#" class="hover:text-white transition-colors">Terms</a>
-                    <a href="#" class="hover:text-white transition-colors">Sitemap</a>
                 </div>
             </div>
         </div>
@@ -352,34 +338,48 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100,
-            easing: 'ease-out-cubic'
-        });
-
-        // Loader
+        // Page Loader logic
         window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
             setTimeout(() => {
+                const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
                 setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 700);
-            }, 500);
+                    loader.style.visibility = 'hidden';
+                }, 800);
+            }, 1000);
         });
 
-        // Navbar Scroll Effect
+        // Mobile Menu Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        const hideMenu = () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        closeMenu.addEventListener('click', hideMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', hideMenu));
+
+        // AOS Init
+        AOS.init({ duration: 1200, once: true, offset: 150 });
+
+        // Navbar Scroll Logic
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) {
                 nav.classList.add('glass', 'py-4');
-                nav.classList.remove('py-6');
+                nav.classList.remove('py-8');
             } else {
                 nav.classList.remove('glass', 'py-4');
-                nav.classList.add('py-6');
+                nav.classList.add('py-8');
             }
         });
     </script>
