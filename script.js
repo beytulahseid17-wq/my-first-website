@@ -46,6 +46,13 @@ const projectData = [
     image: "coffee.jpeg",
     previewImage: "coffee.jpeg",
     previewLink: "etete.html"
+  },
+  {
+    title: "Gym Website",
+    description: "A strong fitness website concept for gym programs, membership offers, and training services.",
+    image: "gym.jpeg",
+    previewImage: "gym.jpeg",
+    previewLink: "gym.html"
   }
 ];
 
